@@ -1,0 +1,255 @@
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    user-select: none;
+}
+.contenedor-tarjeta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding-bottom:2rem;
+}
+.tarjeta{
+    display: flex;
+    align-items: flex-start;
+    background-color: #325158;;
+    width: 70%;
+    height: fit-content;
+    border-radius: 25px;
+}
+.tarjeta-info{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0rem 0rem 0.5rem;
+    width: 100%;
+}
+.tarjeta-img{
+    position: relative;
+}
+.tarjeta-titulo{
+    position: absolute;
+    font-size: 3rem;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10;
+    font-weight: 500;
+}
+.tarjeta-fecha{
+    position: absolute;
+    top: 6rem;
+    left: 1rem;
+    z-index: 10;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+.tarjeta-temp{
+    position: absolute;
+    top: 20rem;
+    left: 1rem;
+    z-index: 10; 
+    font-size: 4rem;
+    font-weight: 400;
+}
+.tarjeta-descripcion{
+    position: absolute;
+    top: 24rem;
+    left: 0rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    font-size: 1.5rem;
+}
+.tarjeta-icon{
+    width: 5rem;
+    height: 5rem;
+}
+.img {
+    border-radius: 25px;
+    height: 30rem;
+    width: 20rem;
+    filter: grayscale(1); /* Combinación de efectos: escala de grises y oscurecimiento */
+    object-fit: cover;
+}
+.sensacion{
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    font-weight: 400;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+}
+.mas-detalles p{
+    margin-top: 0.5rem;
+}
+.mas-detalles span{
+    margin-left: 0.3rem;
+}
+hr{
+    max-width: 54.5rem;
+    margin-top: 0.5rem;
+}
+.pronosticos{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 2rem;
+}
+.pronostico{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: #3b757f;
+    border: 1px solid #3b757f;
+    width: 30%;
+    padding: 2.5rem 0rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 250ms;
+}
+.pronostico:hover{
+    background-color: transparent;
+}
+.pronostico img{
+    width: 4rem;
+    height: 4rem;
+}
+.pron-temp{
+    font-size: 3rem;
+}
+/* MEDIA-QUERIES */
+@media (max-width: 1550px) {
+    .pron-fecha{
+        font-size: 1rem;
+    }
+    .tarjeta{
+        width: 80%;
+    }
+}
+@media (max-width: 1440px) {
+    .pronostico img{
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    .pron-detalles{
+        font-size: 1rem;
+    }
+    .pron-fecha{
+        font-size: 0.9rem;
+    }
+
+}
+@media (max-width: 1190px) {
+    .pron-fecha{
+        font-size: 0.8rem;
+    }
+    .pron-temp{
+        font-size: 2.5rem;
+    }
+    .pron-detalles{
+        font-size: 0.9rem;
+    }
+    .img {
+        width: 17rem;
+    }
+    .tarjeta{
+        width: 90%;
+    }
+}
+@media (max-width:1024px) {
+    .tarjeta{
+        flex-direction: column;
+        align-items: center;
+    }
+    .img {
+        width: 81vw;
+    }
+    .pronosticos{
+        justify-content: space-evenly;
+    }
+    hr{
+        width: 76vw;
+        margin-left: 0.6rem;
+    }
+}
+@media (max-width:750px) {
+    hr{
+        width: 74vw;
+        margin-left: 0.6rem;
+    }
+    .pronosticos{
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .pronostico{
+        width: 55vw;
+    }
+    .pron-fecha{
+        font-size: 1.2rem;
+    }
+    .pron-temp{
+        font-size: 3rem;
+    }
+    .pron-detalles{
+        font-size: 1.2rem;
+    }
+    .pronostico img{
+        width: 4rem;
+        height: 4rem;
+    }
+}
+@media (max-width:590px) {
+    input{
+        width: 20rem;
+    }
+}
+@media (max-width:483px) {
+    input{
+        width: 16rem;
+    }
+    .pronostico{
+        width: 60vw;
+    }
+    .img{
+        width: 80.7vw;
+    }
+}
+@media (max-width:400px) {
+    input{
+        width: 13rem;
+    }
+    .pronostico{
+        width: 65vw;
+    }
+    hr{
+        width: 70vw;
+        margin-left: 0.6rem;
+    }
+    .sensacion{
+        font-size: 1rem;
+    }
+}
+@media (max-width:350px) {
+    input{
+        width: 11rem;
+
+    }
+    .pronostico{
+        width: 65vw;
+    }
+    hr{
+        width: 70vw;
+        margin-left: 0.6rem;
+    }
+    .sensacion{
+        font-size: 1rem;
+    }
+    .img{
+        height: 28rem;
+    }
+}
