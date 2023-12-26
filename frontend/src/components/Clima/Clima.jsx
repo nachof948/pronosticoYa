@@ -48,14 +48,14 @@ const Clima = () => {
     })
   }
   return(
-    <div>
+    <>
       <Buscador nuevaUbicacion = {obtenerUbicacion} />
       <Tarjeta 
       mostrarInformacion = {mostrar}
       cargandoInformacion = {cargando}
       clima = {clima}
       pronostico = {pronostico}/>
-    </div>
+    </>
   )
 }
 

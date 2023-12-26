@@ -12,12 +12,12 @@ const Buscador = ({nuevaUbicacion}) => {
 
 
   return(
-    <div className='contenedor-buscador'>
+    <section className='contenedor-buscador'>
       <form action="" onSubmit={buscarCiudad}>
         <input type="text" placeholder='Buscar ciudad...' onChange={(e)=>setCiudad(e.target.value)} />
         <button type='submit'>Buscar</button>
       </form>
-    </div>
+    </section>
   )
 }
 

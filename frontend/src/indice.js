@@ -1,2 +1,5 @@
 export { Buscador } from './components/Buscador/Buscador'
 export { Clima } from './components/Clima/Clima'
+export { Tarjeta } from './components/Tarjeta-clima/Tarjeta'
+export { Home } from './components/Home/Home'
+export { NavBar } from './components/NavBar/NavBar'
