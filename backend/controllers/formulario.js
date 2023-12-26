@@ -31,13 +31,13 @@ const iniciarSesion = async(req, res) => {
         const buscarUsuario = await Usuario.findOne({username})
         /* Si no esta el usuario en la base de datos */
         if(!buscarUsuario){
-            res.status(401).send('Usuario o contraseña incorrecta')
+            return res.status(401).send('Usuario o contraseña incorrecta')
         }
         /* Si el usuario existe validamos lo contraseña */
-        const validarPassword = await bcrypt.compare(password, buscarUsuario.password)
+        const validarPassword =  bcrypt.compare(password, buscarUsuario.password)
         /* Si la contraseña no coincide */
         if(!validarPassword){
-            res.status(401).send('Usuario o contraseña incorrecta')
+            return res.status(401).send('Usuario o contraseña incorrecta')
         }
         /* Eligimos la informacion que vamos a tomar del usuario  */
         const infoUsuario = {
@@ -46,14 +46,15 @@ const iniciarSesion = async(req, res) => {
         }
         /* Creamos el token */
         const token = jwt.sign(infoUsuario, process.env.TOKEN)
-        res.send({
+        return res.send({
             id: buscarUsuario._id,
             username: buscarUsuario.username,
             token
         })
+        console.log(username, token)
     }
     catch(err){
-        res.status(500).send('Error al iniciar sesion' + err)
+        return res.status(500).send('Error al iniciar sesion' + err)
     }
 }
 module.exports = {registrarse, iniciarSesion}

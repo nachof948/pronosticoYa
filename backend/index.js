@@ -8,17 +8,16 @@ require('dotenv').config()
 
 /* PUERTO */
 const PUERTO = process.env.PUERTO
-
-/* Configuracion del formulario */
-app.use(express.json())
-app.use(express.urlencoded({ extended:false}))
-
 /* Configuracion de cors */
 app.use(cors({
     origin:'http://localhost:3000',
     methods:['GET', 'POST','PUT','DELETE'],
     credentials:true
 }))
+
+/* Configuracion del formulario */
+app.use(express.json())
+app.use(express.urlencoded({ extended:false}))
 
 
 /* Rutas */
