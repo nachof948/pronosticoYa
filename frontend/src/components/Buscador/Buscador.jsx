@@ -14,8 +14,8 @@ const Buscador = ({nuevaUbicacion}) => {
   return(
     <section className='contenedor-buscador'>
       <form action="" onSubmit={buscarCiudad}>
-        <input type="text" placeholder='Buscar ciudad...' onChange={(e)=>setCiudad(e.target.value)} />
-        <button type='submit'>Buscar</button>
+        <input className='input-buscador' type="text" placeholder='Buscar ciudad...' onChange={(e)=>setCiudad(e.target.value)} />
+        <button className='btn-buscador' type='submit'>Buscar</button>
       </form>
     </section>
   )

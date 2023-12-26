@@ -1,8 +1,8 @@
 import React,{useState, useEffect} from 'react';
-import { Buscador, Tarjeta, NavBar, Clima} from '../../indice'
+import { NavBar, Clima} from '../../indice'
 import './Hoja de estilo/Home.css'
 
-const Home = () => {
+const Home = ({usuarioLogueado, username, token}) => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <NavBar />
+          <NavBar/>
           <main>
             <Clima/>
           </main>
