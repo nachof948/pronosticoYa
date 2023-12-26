@@ -12,19 +12,28 @@ const NavBar = () => {
   }
 
   return(
-    <header >
+    <header>
       {usuarioLogueado && 
       <div className='navbar'>
-        <h1>PronósticoYa</h1>
-        <img src="./Favicon.png" alt="" />
-        <button style={{color: 'black'}} onClick={cerrarSesion}>{username}</button>
+        <div className="navbar-titulo">
+          <a href='/'>PronósticoYa!</a>
+          <img src="./Favicon.png" alt="" />
+        </div>
+        <nav className="navbar-enlaces">
+          <button onClick={cerrarSesion}><span><i class="bi bi-person-fill"></i></span>{username}</button>
+        </nav>
       </div>
       }
       {!usuarioLogueado && 
       <div className='navbar'>
-        <h1>PronósticoYa</h1>
-        <img src="./Favicon.png" alt="" />
-        <Link to={'/auth/registrarse'} style={{color: 'white'}}>Registrarse</Link>
+        <div className='navbar-titulo'>
+          <a href='/'>PronósticoYa!</a>
+          <img src="./Favicon.png" alt="" />
+        </div>
+        <nav className='navbar-enlaces'>
+          <Link to={'/auth/registrarse'} >Registrarse</Link>
+          <Link to={'/auth/iniciar-sesion'} >Iniciar Sesion</Link>
+        </nav>
       </div>
       }
         </header>

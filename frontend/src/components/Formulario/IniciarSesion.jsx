@@ -1,24 +1,24 @@
 import React from 'react';
-import { FormRegistrarse } from './Form-resgistrarse';
-import  Lluvia  from './Imagenes/Lluvia.jpg'
+import { FormIniciarSesion } from './Form-inciar sesion';
 import Icono from './Imagenes/Favicon.png'
-const Registrarse = () => {
+import Sol from './Imagenes/Sol.jpg'
+const IniciarSesion = () => {
   return(
-    <>
-    <header className='header-form'>
+    <div>
+          <header className='header-form'>
       <a href='/'>PronósticoYa!</a>
       <img className='form-icono' src={Icono} alt="" />
     </header>
     <section className='section-form'>
       <div className="contenedor-form">
-        <img src={Lluvia} alt="" width={"300px"} />
+        <img src={Sol} alt="" />
         <div className='contenedor-input'>
-          <FormRegistrarse />
+          <FormIniciarSesion />
         </div>
       </div>
     </section>
-    </>
+    </div>
   )
 }
 
-export { Registrarse }
+export { IniciarSesion }

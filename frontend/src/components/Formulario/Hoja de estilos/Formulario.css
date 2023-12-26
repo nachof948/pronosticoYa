@@ -1,0 +1,104 @@
+.header-form{
+    background-color: #325158;
+    padding: 0.6rem 0rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-icono{
+    width: 4rem;
+    height: 4rem;
+}
+.header-form a{
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 2rem;
+}
+.form-titulo{
+    font-weight: 500;
+    font-size: 3rem;
+}
+.section-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contenedor-form{
+    display: flex;
+    background-color: #325158;
+    border-radius: 20px;
+    width: 60vw;
+    height: 80vh;
+}
+.contenedor-form img{
+    flex-basis: 50%;
+    border-radius: 20px 0px 0px 20px;
+
+    object-fit: cover;
+}
+.form-usuario{
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+}
+.contenedor-input{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.form-usuario input{
+    width: 22rem;
+    padding: 0.8rem;
+    border-radius: 25px;
+    border: 1px solid white;
+    outline: none;
+    background-color: #3b757f;
+    color: white;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.form-usuario input::placeholder{
+    color: white;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+}
+.form-usuario input:focus{
+    background-color: transparent;
+}
+.form-usuario button{
+    padding: 0.8rem 1.2rem;
+    color: white;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    border: 1px solid white;
+    background-color: #325158;
+    cursor: pointer;
+    transition: all 250ms;
+}
+.form-usuario button:hover{
+    background-color: #5faab1;
+}
+.form-pregunta{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+.form-pregunta a,
+.form-pregunta p{
+    color: white;
+    font-size: 0.9rem;
+}

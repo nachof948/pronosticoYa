@@ -44,7 +44,7 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) =
     pronosticoFecha9 = pronostico.list[3].dt_txt.substring(8, 10) + '/' + pronostico.list[3].dt_txt.substring(5, 7) + '/' + pronostico.list[2].dt_txt.substring(0, 4) + ' ' +pronostico.list[3].dt_txt.substring(11, 16)
   }
   return(
-    <section>
+    <section className='section-tarjeta'>
       {mostrarInformacion ? (
         <div className='contenedor-tarjeta'>
           <div className='tarjeta'>
@@ -53,7 +53,7 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) =
               <p className='tarjeta-fecha'>{fecha}</p>
               <h1 className='tarjeta-temp'>{(clima.main.temp - 273.15).toFixed(1)}°C</h1>
               <p className='tarjeta-descripcion'><img className='tarjeta-icon' src={urlIcon} alt="Icon" />{clima.weather[0].description}</p>
-              <img className='img' src={imagenCiudad}alt="Ciudad" />
+              <img className='img' src={imagenCiudad} alt="Ciudad" />
             </div>
             <div className='tarjeta-info'>
               <div className='mas-detalles'>
