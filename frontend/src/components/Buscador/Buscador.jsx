@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import './Hoja de estilo/Buscador.css'
 const Buscador = ({nuevaUbicacion}) => {
+  
   const [ciudad, setCiudad] = useState('');
   
   const buscarCiudad = (e)=>{

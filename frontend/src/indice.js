@@ -14,3 +14,6 @@ export { FormRegistrarse } from './components/Formulario/Form-resgistrarse'
 export { FormIniciarSesion } from './components/Formulario/Form-inciar sesion'
 export { Registrarse } from './components/Formulario/Registrarse.jsx'
 export { IniciarSesion } from './components/Formulario/IniciarSesion.jsx'
+
+/* Usuario */
+export { Usuario } from './components/Usuario/Usuario'

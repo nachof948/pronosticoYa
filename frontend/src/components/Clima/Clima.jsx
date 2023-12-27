@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { Buscador } from '../Buscador/Buscador';
 import { Tarjeta } from '../Tarjeta-clima/Tarjeta';
+
+
+
 const Clima = () => {
   const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
   let urlClima = `https://api.openweathermap.org/data/2.5/weather?&appid=${API_KEY}&lang=es`
@@ -47,6 +50,27 @@ const Clima = () => {
       setMostrar(false)
     })
   }
+  const enviarCiudad = async (ciudad) => {
+    /* Temperatura actual */
+    let ciudadEnviada = `https://api.openweathermap.org/data/2.5/weather?&appid=${API_KEY}&lang=es&q=${ciudad}`
+    try{
+      const response = await axios.post(`${ciudadEnviada}`)
+      console.log(response.data)
+    }
+    catch(error){
+      console.log(error)
+    }
+
+    /* Pronostico */
+    let ciudadPronostico = `https://api.openweathermap.org/data/2.5/forecast?&appid=${API_KEY}&lang=es&q=${ciudad}`
+    try{
+      const response = await axios.post(`${ciudadPronostico}`)
+      console.log(response.data)
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
   return(
     <>
       <Buscador nuevaUbicacion = {obtenerUbicacion} />
@@ -54,7 +78,9 @@ const Clima = () => {
       mostrarInformacion = {mostrar}
       cargandoInformacion = {cargando}
       clima = {clima}
-      pronostico = {pronostico}/>
+      pronostico = {pronostico}
+      enviarCiudad = {enviarCiudad}
+      />
     </>
   )
 }

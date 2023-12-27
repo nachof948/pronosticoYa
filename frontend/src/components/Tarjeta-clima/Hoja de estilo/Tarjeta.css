@@ -23,6 +23,7 @@
 .tarjeta-info{
     display: flex;
     flex-direction: column;
+    position: relative;
     padding: 0.5rem 0rem 0rem 0.5rem;
     width: 100%;
 }
@@ -121,6 +122,29 @@ hr{
 }
 .pron-temp{
     font-size: 3rem;
+}
+.contenedor-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+.btn-agregar{
+    padding: 1rem 1.5rem;
+    border-radius: 25px ;
+    outline: none;
+    background-color: #3b757f;
+    color: white;
+    font-weight: 700;
+    font-size: 2rem;
+    border: 1px solid white;
+    cursor: pointer;
+    margin-right: 1rem;
+    text-decoration: none;
+    transition: all 250ms;
+}
+.btn-agregar:hover{
+    background-color: white;
+    color: #325158;
 }
 /* MEDIA-QUERIES */
 @media (max-width: 1550px) {

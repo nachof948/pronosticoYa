@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Hoja de estilo/Tarjeta.css'
 import { Cargando } from '../Cargando/Cargando';
 import imagenCiudad from './Ciudad.jpg'
+import { usuarioContext } from '../../App';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) => {
-  
+  const navegar = useNavigate()
+  const { usuarioLogueado, username } = useContext(usuarioContext)
   /* Fecha de la temperatura actual */
   let hoy = new Date()
   let dia = hoy.getDate()
@@ -43,11 +48,24 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) =
     pronosticoFecha6 = pronostico.list[2].dt_txt.substring(8, 10) + '/' + pronostico.list[2].dt_txt.substring(5, 7) + '/' + pronostico.list[2].dt_txt.substring(0, 4) + ' ' +pronostico.list[2].dt_txt.substring(11, 16)
     pronosticoFecha9 = pronostico.list[3].dt_txt.substring(8, 10) + '/' + pronostico.list[3].dt_txt.substring(5, 7) + '/' + pronostico.list[2].dt_txt.substring(0, 4) + ' ' +pronostico.list[3].dt_txt.substring(11, 16)
   }
+
+  const manejarCiudad = async () => {
+    const ciudad = clima.name
+    try{
+      const response = await axios.post(`/usuario/${username}/agregar-ciudad`,{ ciudad })
+      alert('Ciudad agregada' + clima.name)
+      navegar(`/usuario/${username}`)
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
   return(
     <section className='section-tarjeta'>
       {mostrarInformacion ? (
         <div className='contenedor-tarjeta'>
           <div className='tarjeta'>
+            
             <div className='tarjeta-img'>
               <h3 className='tarjeta-titulo'>{clima.name}</h3>
               <p className='tarjeta-fecha'>{fecha}</p>
@@ -56,11 +74,19 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) =
               <img className='img' src={imagenCiudad} alt="Ciudad" />
             </div>
             <div className='tarjeta-info'>
-              <div className='mas-detalles'>
-                <p className='sensacion'>Sensación térmica:<span>{(clima.main.feels_like - 273.15).toFixed(1)}°C</span></p>
-                <p className='sensacion'>Humedad: <span>{(clima.main.humidity)}%</span></p>
-                <p className='sensacion'>Presion: <span>{(clima.main.pressure)}hPa</span></p>
-                <p className='sensacion'>Velocidad del Viento:<span>{(clima.wind.speed)}m/s</span></p>
+              <div className="contenedor-info">
+                <div className='mas-detalles'>
+                  <p className='sensacion'>Sensación térmica:<span>{(clima.main.feels_like - 273.15).toFixed(1)}°C</span></p>
+                  <p className='sensacion'>Humedad: <span>{(clima.main.humidity)}%</span></p>
+                  <p className='sensacion'>Presion: <span>{(clima.main.pressure)}hPa</span></p>
+                  <p className='sensacion'>Velocidad del Viento:<span>{(clima.wind.speed)}m/s</span></p>
+                </div>
+                {usuarioLogueado ? (
+                  <button className='btn-agregar' onClick={manejarCiudad}>+</button>
+                ):(
+                  <a className='btn-agregar' href='/auth/registrarse'>+</a>
+                )}
+                
               </div>
               <hr/>
               <div className='pronosticos'>
