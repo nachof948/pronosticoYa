@@ -1,13 +1,16 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const ciudadElegidaSchema = new mongoose.Schema({
-    usuario:{
+    usuario: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Usuario"
+        ref: "Usuario"
     },
-    ciudad:[{
-        type: Object
-    }]
-})
-const Ciudad = mongoose.model('Ciudades', ciudadElegidaSchema)
-module.exports = Ciudad
+    ciudades: [
+        {
+            nombreActual: String
+        }
+    ]
+});
+
+const Ciudad = mongoose.model('Ciudades', ciudadElegidaSchema);
+module.exports = Ciudad;

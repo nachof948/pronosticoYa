@@ -17,7 +17,6 @@ const mostrarCiudad = async (req, res)=>{
     try{
         const usuarioCiudades = await Ciudad.findOne({usuario: usuarioId})
         return res.send(usuarioCiudades)
-
     }
     catch(err){
         return res.status(500).json({error: "Error en el servidor"})
@@ -25,31 +24,41 @@ const mostrarCiudad = async (req, res)=>{
 }
 
 
-const enviarCiudad = async (req, res) =>{
-    const { username } = req.params
-    const { ciudad } = req.body
-    try{
-        /* Buscamos el usuario */
-        const usuario = await Usuario.findOne({username})
-        /* Si el usuario no esta */
-        if(!usuario){
-            return res.status(404).json({mensaje:'Usuario no encontrado'})
+const enviarCiudad = async (req, res) => {
+    const { username } = req.params;
+    const { ciudadActual } = req.body;
+
+    try {
+        const usuario = await Usuario.findOne({ username });
+
+        if (!usuario) {
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
         }
         
-        /* Buscamos si el usuario tiene ciduades agregadas */
-        let ciudadesUsuario = await Ciudad.findOne({ usuario: usuario._id })
-        /* Si no tiene ninguna ciudad agregada */
-        if(!ciudadesUsuario){
-            ciudadesUsuario = await Ciudad.create({usuario: usuario._id, ciudad:[]})
-        }
-        ciudadesUsuario.ciudad.push({nombreCiudad: ciudad})
-        await ciudadesUsuario.save()
+        let ciudadesUsuario = await Ciudad.findOne({ usuario: usuario._id });
 
-        return res.status(200).json({mensaje:'Ciudad agregada correctamente'})
+        if (!ciudadesUsuario) {
+            ciudadesUsuario = await Ciudad.create({
+                usuario: usuario._id,
+                ciudades: [
+                    {
+                        nombreActual: ciudadActual,
+                    }
+                ]
+            });
+        } else {
+            ciudadesUsuario.ciudades.push({
+                    nombreActual: ciudadActual
+            });
+            await ciudadesUsuario.save();
+        }
+
+        return res.status(200).json({ mensaje: 'Ciudades agregadas correctamente' });
+    } catch (error) {
+        return res.status(500).json({ mensaje: 'Error al obtener la ciudad' });
     }
-    catch(error){
-        return res.status(500).json({mensaje:'Error al obtener la ciudad'})
-    }
-}
+};
+
+
 
 module.exports= {enviarCiudad, mostrarCiudad}
