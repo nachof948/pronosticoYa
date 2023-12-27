@@ -20,7 +20,8 @@ const NavBar = () => {
           <img src="./Favicon.png" alt="" />
         </div>
         <nav className="navbar-enlaces">
-          <button onClick={cerrarSesion}><span><i class="bi bi-person-fill"></i></span>{username}</button>
+          <a href={`/usuario/${username}`} ><span><i class="bi bi-person-fill"></i></span>{username}</a>
+          <button onClick={cerrarSesion}>Cerrar Sesion</button>
         </nav>
       </div>
       }

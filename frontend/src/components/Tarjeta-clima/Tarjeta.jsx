@@ -50,7 +50,7 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) =
   }
 
   const manejarCiudad = async () => {
-    const ciudad = clima.name
+    const ciudad = clima
     try{
       const response = await axios.post(`/usuario/${username}/agregar-ciudad`,{ ciudad })
       alert('Ciudad agregada' + clima.name)
