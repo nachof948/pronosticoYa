@@ -19,7 +19,7 @@ const FormIniciarSesion = () => {
       setPassword('')
       localStorage.setItem('token', token)
       localStorage.setItem('username', nombreUsuario)
-      navegar(`/usuario/${username}`)
+      navegar(`/`)
       window.location.reload()
     }
     catch(err){

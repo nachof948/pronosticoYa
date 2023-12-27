@@ -3,10 +3,10 @@ import './Hoja de estilo/Tarjeta.css'
 import { Cargando } from '../Cargando/Cargando';
 import imagenCiudad from './Ciudad.jpg'
 import { usuarioContext } from '../../App';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) => {
+
+const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico, enviarCiudad}) => {
   const navegar = useNavigate()
   const { usuarioLogueado, username } = useContext(usuarioContext)
   /* Fecha de la temperatura actual */
@@ -49,16 +49,9 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) =
     pronosticoFecha9 = pronostico.list[3].dt_txt.substring(8, 10) + '/' + pronostico.list[3].dt_txt.substring(5, 7) + '/' + pronostico.list[2].dt_txt.substring(0, 4) + ' ' +pronostico.list[3].dt_txt.substring(11, 16)
   }
 
-  const manejarCiudad = async () => {
-    const ciudad = clima
-    try{
-      const response = await axios.post(`/usuario/${username}/agregar-ciudad`,{ ciudad })
-      alert('Ciudad agregada' + clima.name)
-      navegar(`/usuario/${username}`)
-    }
-    catch(error){
-      console.log(error)
-    }
+  const manejarCiudad = async (ciudad) => {
+    enviarCiudad(ciudad)
+    navegar(`/usuario/${username}`)
   }
   return(
     <section className='section-tarjeta'>
@@ -82,7 +75,7 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico}) =
                   <p className='sensacion'>Velocidad del Viento:<span>{(clima.wind.speed)}m/s</span></p>
                 </div>
                 {usuarioLogueado ? (
-                  <button className='btn-agregar' onClick={manejarCiudad}>+</button>
+                  <button className='btn-agregar' onClick={()=>manejarCiudad(clima.name)}>+</button>
                 ):(
                   <a className='btn-agregar' href='/auth/registrarse'>+</a>
                 )}
