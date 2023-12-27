@@ -3,6 +3,26 @@ const Ciudad = require('../models/CiudadElegida')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
+const mostrarCiudad = async (req, res)=>{
+    const authorization = req.get('authorization')
+    let token = null
+    if(authorization && authorization.toLowerCase().startsWith('bearer')){
+        token = authorization.substring(7)
+    }
+    const decodedToken = jwt.verify(token, process.env.TOKEN)
+    if(!token || !decodedToken){
+        return res.status(401).json({mensaje:'Token invalido'})
+    }
+    const usuarioId = decodedToken.id
+    try{
+        const usuarioCiudades = await Ciudad.findOne({usuario: usuarioId})
+        return res.send(usuarioCiudades)
+
+    }
+    catch(err){
+        return res.status(500).json({error: "Error en el servidor"})
+    }
+}
 
 
 const enviarCiudad = async (req, res) =>{
@@ -32,4 +52,4 @@ const enviarCiudad = async (req, res) =>{
     }
 }
 
-module.exports= {enviarCiudad}
+module.exports= {enviarCiudad, mostrarCiudad}

@@ -51,7 +51,6 @@ const iniciarSesion = async(req, res) => {
             username: buscarUsuario.username,
             token
         })
-        console.log(username, token)
     }
     catch(err){
         return res.status(500).send('Error al iniciar sesion' + err)

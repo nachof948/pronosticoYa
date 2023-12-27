@@ -6,7 +6,7 @@ const ciudadElegidaSchema = new mongoose.Schema({
         ref:"Usuario"
     },
     ciudad:[{
-        nombreCiudad:String
+        type: Object
     }]
 })
 const Ciudad = mongoose.model('Ciudades', ciudadElegidaSchema)
