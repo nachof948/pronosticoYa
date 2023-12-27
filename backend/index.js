@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const connectDB = require('./db/conexion')
 const formulario = require('./routes/formulario')
+const usuarioCiudades = require('./routes/usuarioCiudades')
 const cors = require('cors')
 require('dotenv').config()
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended:false}))
 
 /* Rutas */
 app.use('/auth', formulario)
+app.use('/usuario', usuarioCiudades)
 
 app.get('/',(req, res) =>{
     res.send('<h1>Bienvenido</h1>')
