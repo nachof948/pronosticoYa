@@ -6,7 +6,9 @@ import './Hoja de estilo/Usuario.css'
 
 const Usuario = () => {
   const { username, token } = useContext(usuarioContext);
-  const [ciudades, setCiudades] = useState([]);
+    const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
+  const [ciudadesActuales, setCiudadesActuales] = useState([]);
+  const [ciudadesPronostico, setCiudadesPronostico] = useState([]);
   const [ cargando, setCargando] = useState(false);
 
   /* Fecha */
@@ -15,47 +17,60 @@ const Usuario = () => {
   let mes = fecha.getMonth() + 1
   let año = fecha.getFullYear()
 
-  let fechaActual = `${dia}/${mes}/${año}`
+  let fechaActual = `${dia}/${mes}/${año}` 
 
-  useEffect(() => {
-    const fetchData = async () => {
-
-      try {
-        const response = await axios.get(`/usuario/${username}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-  
-        if (response.data && response.data.ciudades && response.data.ciudades.length > 0) {
-          const dataCiudades = response.data.ciudades;
-          const citiesData = []; // Array para almacenar los datos de todas las ciudades
-  
-          for (const ciudad of dataCiudades) {
-            const url = ciudad.nombreActual; // O ajusta para ciudad.nombrePronostico si es necesario
-            const ciudadActual = await axios.get(url);
-  
-            const urlImg = `https://openweathermap.org/img/wn/`;
-            const urlIcon = `${urlImg}${ciudadActual.data.weather[0].icon}.png`; // Definición de urlIcon para cada ciudad
-  
-            citiesData.push({
-              ...ciudadActual.data,
-              urlIcon // Almacena la URL del ícono junto con los datos de cada ciudad
-            });
-          }
-          setCiudades(citiesData); // Actualiza el estado con los datos de todas las ciudades
-
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`/usuario/${username}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      } catch (error) {
-        console.error('Error al obtener datos:', error);
-      }
-    };
-  
-    fetchData();
-  }, [username, token, ciudades]);
+      });
+
+      const ciudades = response.data.ciudades;
+
+      // Obtener el clima actual para las ciudades
+      const ciudadesActualesPromises = ciudades.map(async (ciudad) => {
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?&appid=${API_KEY}&lang=es&q=${ciudad}`);
+        return response.data;
+      });
+
+      const ciudadesActualesInfo = await Promise.all(ciudadesActualesPromises);
+      const ciudadesActualesIcon = ciudadesActualesInfo.map((ciudad) => {
+        const urlImg = `https://openweathermap.org/img/wn/`;
+        const urlIcon = `${urlImg}${ciudad.weather[0].icon}.png`;
+        return { ...ciudad, urlIcon };
+      });
+      setCiudadesActuales(ciudadesActualesIcon);
+
+      // Obtener el pronóstico para las mismas ciudades
+      const ciudadesPronosticoPromises = ciudades.map(async (ciudad) => {
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?&appid=${API_KEY}&lang=es&q=${ciudad}`);
+        return response.data;
+      });
+
+      const ciudadesPronosticoInfo = await Promise.all(ciudadesPronosticoPromises);
+      const ciudadesPronosticoIcon = ciudadesPronosticoInfo.map((ciudad) => {
+        const urlImg = `https://openweathermap.org/img/wn/`;
+        
+        const urlIcon3 = `${urlImg}${ciudad.list[1].weather[0].icon}.png`;
+        const urlIcon6 = `${urlImg}${ciudad.list[2].weather[0].icon}.png`;
+        const urlIcon9 = `${urlImg}${ciudad.list[3].weather[0].icon}.png`;
+        return { ...ciudad, urlIcon3, urlIcon6, urlIcon9};
+      });
+      setCiudadesPronostico(ciudadesPronosticoIcon);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  fetchData();
+}, [username, token]);
+
   
 
-  const eliminarCiudad = async(ciudadActual)=>{
+
+/*   const eliminarCiudad = async(ciudadActual)=>{
     const url = `https://api.openweathermap.org/data/2.5/weather?&appid=56fc54e07cbc820b405d4839fad15d5a&lang=es&q=${ciudadActual}`
     console.log(url);
     try{
@@ -66,7 +81,7 @@ const Usuario = () => {
     catch(error){
       console.log('Error')
     }
-  }
+  } */
 
   return (
     <>
@@ -91,13 +106,13 @@ const Usuario = () => {
       ) : (
         <>
           <a href="/">Buscar más ciudades</a>
-          {ciudades && 
+          {ciudadesActuales && 
             <div>
               <h2>Ciudades</h2>
               <div className='contenedor-usuario'>
-                {ciudades.map((ciudad, index) => (
+                {ciudadesActuales.map((ciudad, index) => (
                   <div className='tarjeta-img' key={index}>
-                    <button onClick={() => eliminarCiudad(ciudad.name)}>-</button>
+{/*                     <button onClick={() => eliminarCiudad(ciudad.name)}>-</button> */}
                     <h3 className='tarjeta-titulo'>{ciudad.name}</h3>
                     <p className='tarjeta-fecha'>{fechaActual}</p>
                     <h1 className='tarjeta-temp'>{(ciudad.main.temp - 273.15).toFixed(1)}</h1>
@@ -108,10 +123,20 @@ const Usuario = () => {
                     <img className='img' src={imagen} alt="Ciudad" />
                   </div>
                 ))}
+                {ciudadesPronostico.map((ciudad, index) => {
+                return (
+                  <div key={index}>
+                    <h1>{(ciudad.list[1].main.temp - 273.15).toFixed(1)}</h1>
+                    <h1>{(ciudad.list[2].main.temp - 273.15).toFixed(1)}</h1>
+                    <img src={ciudad.urlIcon3} alt="" />
+                    <img src={ciudad.urlIcon6} alt="" />
+                  </div>
+                );
+                })}
               </div>
             </div>
           }
-          {!ciudades && <div>No hay ciudades</div>}
+          {!ciudadesActuales && <div>No hay ciudades</div>}
         </>
       )}
     </>

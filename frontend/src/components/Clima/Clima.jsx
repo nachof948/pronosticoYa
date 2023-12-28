@@ -53,23 +53,12 @@ const Clima = () => {
     })
   }
   const enviarCiudad = async (ciudad) => {
-    /* Temperatura actual */
-    let ciudadActual = `https://api.openweathermap.org/data/2.5/weather?&appid=${API_KEY}&lang=es&q=${ciudad}`
     try{
-      const response = await axios.post(`/usuario/${username}/agregar-ciudad`, {ciudadActual})
+      const response = await axios.post(`/usuario/${username}/agregar-ciudad`, {ciudad})
     }
     catch(error){
       console.log(error)
     }
-
-    /* Pronostico */
-/*     let ciudadPronostico = `https://api.openweathermap.org/data/2.5/forecast?&appid=${API_KEY}&lang=es&q=${ciudad}`
-    try{
-      const response = await axios.post(`/usuario/${username}/agregar-ciudad`, {ciudadPronostico})
-    }
-    catch(error){
-      console.log(error)
-    }  */
   }
   return(
     <>
