@@ -19,7 +19,7 @@ const Usuario = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-    setCargando(true)
+
       try {
         const response = await axios.get(`/usuario/${username}`, {
           headers: {
@@ -44,18 +44,28 @@ const Usuario = () => {
             });
           }
           setCiudades(citiesData); // Actualiza el estado con los datos de todas las ciudades
-          setCargando(false)
+
         }
       } catch (error) {
         console.error('Error al obtener datos:', error);
       }
     };
   
-    fetchData(); 
-  }, [username, token]);
+    fetchData();
+  }, [username, token, ciudades]);
+  
 
-  const eliminarCiudad =()=>{
-    alert('Se elimino la ciudad')
+  const eliminarCiudad = async(ciudadActual)=>{
+    const url = `https://api.openweathermap.org/data/2.5/weather?&appid=56fc54e07cbc820b405d4839fad15d5a&lang=es&q=${ciudadActual}`
+    console.log(url);
+    try{
+      await axios.delete(`/usuario/${username}/eliminar`, {data: {url}})
+      alert(`Se elimino ${ciudadActual}`)
+      window.location.reload()
+    }
+    catch(error){
+      console.log('Error')
+    }
   }
 
   return (
@@ -63,7 +73,7 @@ const Usuario = () => {
       {cargando ? (
         <div className='presentacion'>
           <div>
-            <h1>Bienvenido/a {username} a PronosticoYa!</h1>
+            <h1>PronósticoYa!</h1>
           </div>
           <div className="container">
             <div className="cloud front">
@@ -81,13 +91,13 @@ const Usuario = () => {
       ) : (
         <>
           <a href="/">Buscar más ciudades</a>
-          {ciudades && ciudades.length > 0 ? (
+          {ciudades && 
             <div>
               <h2>Ciudades</h2>
               <div className='contenedor-usuario'>
                 {ciudades.map((ciudad, index) => (
                   <div className='tarjeta-img' key={index}>
-                    <button onClick={eliminarCiudad}>-</button>
+                    <button onClick={() => eliminarCiudad(ciudad.name)}>-</button>
                     <h3 className='tarjeta-titulo'>{ciudad.name}</h3>
                     <p className='tarjeta-fecha'>{fechaActual}</p>
                     <h1 className='tarjeta-temp'>{(ciudad.main.temp - 273.15).toFixed(1)}</h1>
@@ -100,9 +110,8 @@ const Usuario = () => {
                 ))}
               </div>
             </div>
-          ) : (
-            <div>No hay ciudades</div>
-          )}
+          }
+          {!ciudades && <div>No hay ciudades</div>}
         </>
       )}
     </>

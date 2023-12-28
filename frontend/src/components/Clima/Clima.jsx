@@ -57,7 +57,6 @@ const Clima = () => {
     let ciudadActual = `https://api.openweathermap.org/data/2.5/weather?&appid=${API_KEY}&lang=es&q=${ciudad}`
     try{
       const response = await axios.post(`/usuario/${username}/agregar-ciudad`, {ciudadActual})
-      console.log(response.data)
     }
     catch(error){
       console.log(error)
@@ -67,11 +66,10 @@ const Clima = () => {
 /*     let ciudadPronostico = `https://api.openweathermap.org/data/2.5/forecast?&appid=${API_KEY}&lang=es&q=${ciudad}`
     try{
       const response = await axios.post(`/usuario/${username}/agregar-ciudad`, {ciudadPronostico})
-      console.log(response.data)
     }
     catch(error){
       console.log(error)
-    } */
+    }  */
   }
   return(
     <>
