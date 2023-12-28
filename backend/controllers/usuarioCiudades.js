@@ -26,7 +26,7 @@ const mostrarCiudad = async (req, res)=>{
 
 const enviarCiudad = async (req, res) => {
     const { username } = req.params;
-    const { ciudadActual, ciudadPronostico } = req.body;
+    const { ciudad } = req.body;
 
     try {
         const usuario = await Usuario.findOne({ username });
@@ -40,16 +40,10 @@ const enviarCiudad = async (req, res) => {
         if (!ciudadesUsuario) {
             ciudadesUsuario = await Ciudad.create({
                 usuario: usuario._id,
-                ciudades: [
-                    {
-                        nombreActual: ciudadActual,
-                    }
-                ]
+                ciudades: ciudad
             });
         } else {
-            ciudadesUsuario.ciudades.push({
-                    nombreActual: ciudadActual
-            });
+            ciudadesUsuario.ciudades.push(ciudad);
             await ciudadesUsuario.save();
         }
 
