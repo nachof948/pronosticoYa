@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import { NavBar, Clima} from '../../indice'
 import './Hoja de estilo/Home.css'
 
-const Home = ({usuarioLogueado, username, token}) => {
+const Home = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {

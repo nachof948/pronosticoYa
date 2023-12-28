@@ -4,9 +4,10 @@ import axios from 'axios';
 import imagen from './Ciudad.jpg'
 import './Hoja de estilo/Usuario.css'
 
+
 const Usuario = () => {
   const { username, token } = useContext(usuarioContext);
-    const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
+  const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
   const [ciudadesActuales, setCiudadesActuales] = useState([]);
   const [ciudadesPronostico, setCiudadesPronostico] = useState([]);
   const [ cargando, setCargando] = useState(false);
@@ -105,36 +106,58 @@ const Usuario = () => {
         </div>
       ) : (
         <>
+
           <a href="/">Buscar más ciudades</a>
           {ciudadesActuales && 
-            <div>
+            <main className='main-usuario' >
               <h2>Ciudades</h2>
+              {ciudadesActuales.map((ciudad, index) => (
               <div className='contenedor-usuario'>
-                {ciudadesActuales.map((ciudad, index) => (
-                  <div className='tarjeta-img' key={index}>
+              
+                <div className="usuario-tarjeta">
+                  
+                    <div className='usuario-actual-img' key={index}>
 {/*                     <button onClick={() => eliminarCiudad(ciudad.name)}>-</button> */}
-                    <h3 className='tarjeta-titulo'>{ciudad.name}</h3>
-                    <p className='tarjeta-fecha'>{fechaActual}</p>
-                    <h1 className='tarjeta-temp'>{(ciudad.main.temp - 273.15).toFixed(1)}</h1>
-                    <p className='tarjeta-descripcion'>
-                      <img className='tarjeta-icon' src={ciudad.urlIcon} alt="" />
-                      {ciudad.weather[0].description}
-                    </p>
-                    <img className='img' src={imagen} alt="Ciudad" />
-                  </div>
-                ))}
-                {ciudadesPronostico.map((ciudad, index) => {
+                      <h3 className='usuario-actual-titulo'>{ciudad.name}</h3>
+                      <p className='usuario-actual-fecha'>{fechaActual}</p>
+                      <h1 className='usuario-actual-temp'>{(ciudad.main.temp - 273.15).toFixed(1)}</h1>
+                      <p className='usuario-actual-descripcion'>
+                        <img className='usuario-actual-icon' src={ciudad.urlIcon} alt="" />
+                        {ciudad.weather[0].description}
+                      </p>
+                      <img className='usuario-fondo' src={imagen} alt="Ciudad" />
+                    </div>
+                </div>
+                  <div className="usuario-info" >
+                    <div className="usuario-detalles">
+                      <p className='usuario-sensacion'>Sensación térmica:<span>{(ciudad.main.feels_like - 273.15).toFixed(1)}°C</span></p>
+                      <p className='usuario-sensacion'>Humedad: <span>{(ciudad.main.humidity)}%</span></p>
+                      <p className='usuario-sensacion'>Presion: <span>{(ciudad.main.pressure)}hPa</span></p>
+                      <p className='usuario-sensacion after'>Velocidad del Viento:<span>{(ciudad.wind.speed)}m/s</span></p>
+                    </div>
+                    {ciudadesPronostico.map((pronostico, index) => {
                 return (
-                  <div key={index}>
-                    <h1>{(ciudad.list[1].main.temp - 273.15).toFixed(1)}</h1>
-                    <h1>{(ciudad.list[2].main.temp - 273.15).toFixed(1)}</h1>
-                    <img src={ciudad.urlIcon3} alt="" />
-                    <img src={ciudad.urlIcon6} alt="" />
+                  <div className='usuarios-pronosticos' key={index}>
+                    
+                    <div className="usuario-pronostico">
+                      <img src={pronostico.urlIcon3} alt="" />
+                      <h1>{(pronostico.list[1].main.temp - 273.15).toFixed(1)}</h1>
+                    </div>
+                    <div className="usuario-pronostico">
+                      <img src={pronostico.urlIcon6} alt="" />
+                      <h1>{(pronostico.list[2].main.temp - 273.15).toFixed(1)}</h1>
+                    </div>
+                    <div className="usuario-pronostico">
+                      <img src={pronostico.urlIcon9} alt="" />
+                      <h1>{(pronostico.list[3].main.temp - 273.15).toFixed(1)}</h1>
+                    </div>
                   </div>
-                );
-                })}
+                  );
+              })} 
+                  </div>
               </div>
-            </div>
+              ))}
+            </main>
           }
           {!ciudadesActuales && <div>No hay ciudades</div>}
         </>

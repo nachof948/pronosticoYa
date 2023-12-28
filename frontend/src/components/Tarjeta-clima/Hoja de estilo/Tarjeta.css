@@ -15,7 +15,7 @@
 .tarjeta{
     display: flex;
     align-items: flex-start;
-    background-color: #325158;;
+    background-color: #325158;
     width: 70%;
     height: fit-content;
     border-radius: 25px;
