@@ -26,7 +26,7 @@ const mostrarCiudad = async (req, res)=>{
 
 const enviarCiudad = async (req, res) => {
     const { username } = req.params;
-    const { ciudadActual } = req.body;
+    const { ciudadActual, ciudadPronostico } = req.body;
 
     try {
         const usuario = await Usuario.findOne({ username });
@@ -59,6 +59,26 @@ const enviarCiudad = async (req, res) => {
     }
 };
 
+const eliminarCiudad = async (req, res) => {
+    const { username } = req.params
+    const { url } = req.body
+    try{
+        const usuario = await Usuario.findOne({ username })
+        if(!usuario){
+            return res.status(404).send('Usuario no encontrado')
+        }
+        const eliminar = await Ciudad.updateOne(
+            { usuario: usuario._id},
+            { $pull: {ciudades:{nombreActual: url}}}
+        )
+        res.status(200).send('se elimino')
+
+    }
+    catch(error){
+        return res.status(500).send('Error del servidor')
+    }
+}
 
 
-module.exports= {enviarCiudad, mostrarCiudad}
+
+module.exports= {enviarCiudad, mostrarCiudad, eliminarCiudad}

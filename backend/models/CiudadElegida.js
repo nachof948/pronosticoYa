@@ -7,7 +7,7 @@ const ciudadElegidaSchema = new mongoose.Schema({
     },
     ciudades: [
         {
-            nombreActual: String
+            nombreActual: String,
         }
     ]
 });
