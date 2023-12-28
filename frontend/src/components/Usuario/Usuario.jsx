@@ -111,11 +111,9 @@ const Usuario = () => {
           {ciudadesActuales && 
             <main className='main-usuario' >
               <h2>Ciudades</h2>
-              {ciudadesActuales.map((ciudad, index) => (
               <div className='contenedor-usuario'>
-              
+              {ciudadesActuales.map((ciudad, index) => (
                 <div className="usuario-tarjeta">
-                  
                     <div className='usuario-actual-img' key={index}>
 {/*                     <button onClick={() => eliminarCiudad(ciudad.name)}>-</button> */}
                       <h3 className='usuario-actual-titulo'>{ciudad.name}</h3>
@@ -127,18 +125,19 @@ const Usuario = () => {
                       </p>
                       <img className='usuario-fondo' src={imagen} alt="Ciudad" />
                     </div>
-                </div>
-                  <div className="usuario-info" >
+                    <div className="usuario-info" >
                     <div className="usuario-detalles">
                       <p className='usuario-sensacion'>Sensación térmica:<span>{(ciudad.main.feels_like - 273.15).toFixed(1)}°C</span></p>
                       <p className='usuario-sensacion'>Humedad: <span>{(ciudad.main.humidity)}%</span></p>
                       <p className='usuario-sensacion'>Presion: <span>{(ciudad.main.pressure)}hPa</span></p>
                       <p className='usuario-sensacion after'>Velocidad del Viento:<span>{(ciudad.wind.speed)}m/s</span></p>
                     </div>
-                    {ciudadesPronostico.map((pronostico, index) => {
+                  </div>
+                </div>
+              ))}
+              {ciudadesPronostico.map((pronostico, index) => {
                 return (
                   <div className='usuarios-pronosticos' key={index}>
-                    
                     <div className="usuario-pronostico">
                       <img src={pronostico.urlIcon3} alt="" />
                       <h1>{(pronostico.list[1].main.temp - 273.15).toFixed(1)}</h1>
@@ -152,11 +151,9 @@ const Usuario = () => {
                       <h1>{(pronostico.list[3].main.temp - 273.15).toFixed(1)}</h1>
                     </div>
                   </div>
-                  );
+                );
               })} 
-                  </div>
               </div>
-              ))}
             </main>
           }
           {!ciudadesActuales && <div>No hay ciudades</div>}
