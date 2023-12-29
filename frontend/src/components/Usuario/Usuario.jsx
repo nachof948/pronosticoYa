@@ -3,8 +3,11 @@ import { usuarioContext } from '../../App';
 import { NavBarUsuario } from '../../indice'
 import axios from 'axios';
 import imagen from './Img/Ciudad.jpg'
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import './Hoja de estilo/Usuario.css'
+import Swal from 'sweetalert2'
+
 
 
 const Usuario = () => {
@@ -12,6 +15,7 @@ const Usuario = () => {
   const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
   const [ciudades, setCiudades]= useState([])
   const [ cargando, setCargando] = useState(true);
+  useEffect(()=>{AOS.init()},[])
 
   /* Fecha */
   let fecha = new Date()
@@ -101,16 +105,35 @@ useEffect(() => {
   };
   fetchData();
 }, [username, token]);
-  const eliminarCiudad = async(ciudad)=>{
-    try{
-      await axios.delete(`/usuario/${username}/eliminar`, {data :{ciudad}})
-      alert(`Se elimino ${ciudad}`)
-      window.location.reload()
+const eliminarCiudad = async (ciudad) => {
+  const confirmacion = await Swal.fire({
+    title: `Seguro que quieres eliminar ${ciudad}?`,
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Si",
+    denyButtonText: `No`,
+    confirmButtonColor: "#325158",
+    denyButtonColor: "#325158", 
+    background: '#3b757f',
+  });
+
+  if (confirmacion.isConfirmed) {
+    try {
+      await axios.delete(`/usuario/${username}/eliminar`, { data: { ciudad } });
+      window.location.reload();
+    } catch (error) {
+      console.log('Error al eliminar', error);
     }
-    catch(error){
-      console.log('Error')
-    }
-  } 
+  } else if (confirmacion.isDenied) {
+    Swal.fire({
+      title: "No se eliminó",
+      icon: "info",
+      text: "",
+      confirmButtonColor: "#3b757f", 
+      background: '#3b757f',
+    });
+  }
+};
 
   return (
     <>
@@ -133,10 +156,17 @@ useEffect(() => {
         </div>):(
     <>
     <NavBarUsuario/>
+    <div className="usuario-contenedor">
+      {ciudades.length > 0 &&
+        <div className='usuario-titulo'>
+            <h1>Tus ciudades</h1>
+            <a href="/">Buscar más</a>
+        </div>
+      }
       {ciudades.map((ciudad, index)=>{
         return(
-          <div className='contenedor-tarjeta'>
-            <div className='tarjeta'>
+        <div className='contenedor-tarjeta'>
+            <div className='tarjeta' data-aos="zoom-in" data-aos-duration="750">
               <div className='tarjeta-img'>
                 <h3 className='tarjeta-titulo'>{ciudad.nombre}</h3>
                 <p className='tarjeta-fecha'>{ciudad.fechaActual}</p>
@@ -175,8 +205,10 @@ useEffect(() => {
               </div>
             </div>
           </div>
+          
         )
       })}
+      </div>
         {ciudades.length === 0 && 
         <div className='mensaje-usuario'>
           <h1>No hay ciudad agregadas</h1>
@@ -185,7 +217,6 @@ useEffect(() => {
         }
       </>
     )}
-
     </>
   );
 };

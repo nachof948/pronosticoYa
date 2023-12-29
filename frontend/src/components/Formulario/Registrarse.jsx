@@ -2,6 +2,7 @@ import React from 'react';
 import { FormRegistrarse } from './Form-resgistrarse';
 import  Lluvia  from './Imagenes/Lluvia.jpg'
 import Icono from './Imagenes/Favicon.png'
+
 const Registrarse = () => {
   return(
     <>

@@ -101,3 +101,6 @@
     color: white;
     font-size: 0.9rem;
 }
+.swal2-popup {
+    color: #ffffff; /* Cambiar el color del texto a blanco */
+}
