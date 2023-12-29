@@ -52,6 +52,7 @@ const Tarjeta = ({mostrarInformacion, cargandoInformacion, clima, pronostico, en
   const manejarCiudad = async (ciudad) => {
     enviarCiudad(ciudad)
     navegar(`/usuario/${username}`)
+    window.location.reload()
   }
   return(
     <section className='section-tarjeta'>
