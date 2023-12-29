@@ -28,7 +28,6 @@ const FormIniciarSesion = () => {
       setPassword('')
       localStorage.setItem('token', token)
       localStorage.setItem('username', nombreUsuario)
-      alert
       navegar(`/`)
       window.location.reload()
     }
