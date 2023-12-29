@@ -55,7 +55,7 @@ const enviarCiudad = async (req, res) => {
 
 const eliminarCiudad = async (req, res) => {
     const { username } = req.params
-    const { url } = req.body
+    const { ciudad } = req.body
     try{
         const usuario = await Usuario.findOne({ username })
         if(!usuario){
@@ -63,8 +63,12 @@ const eliminarCiudad = async (req, res) => {
         }
         const eliminar = await Ciudad.updateOne(
             { usuario: usuario._id},
-            { $pull: {ciudades:{nombreActual: url}}}
+            { $pull: {ciudades: ciudad}}
         )
+        const ciudadesUsuario = await Ciudad.findOne({ usuario: usuario._id})
+        if(ciudadesUsuario.ciudades.length === 0){
+            await Ciudad.deleteMany({usuario: usuario._id})
+        }
         res.status(200).send('se elimino')
 
     }
