@@ -40,3 +40,23 @@
 .btn-buscador:hover{
     background-color: #5faab1;
 }
+@media (max-width:590px) {
+    .input-buscador{
+        width: 20rem;
+    }
+}
+@media (max-width:483px) {
+    .input-buscador{
+        width: 16rem;
+    }
+}
+@media (max-width:400px) {
+    .input-buscador{
+        width: 13rem;
+    }
+}
+@media (max-width:350px) {
+    .input-buscador{
+        width: 11rem;
+    }
+}
