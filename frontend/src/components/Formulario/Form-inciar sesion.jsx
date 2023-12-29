@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Hoja de estilos/Formulario.css'
+import Swal from 'sweetalert2'
 const FormIniciarSesion = () => {
 
   const[username, setUsername] = useState('')
@@ -13,14 +14,23 @@ const FormIniciarSesion = () => {
     e.preventDefault()
     try{
       const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', {username, password})
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `Bienvenido/a ${username} a PronósticoYa!`,
+        showConfirmButton: false,
+        timer: 1500,
+        background: '#3b757f', // Color de fondo
+      });
       const token = response.data.token
       const nombreUsuario = response.data.username
       setUsername('')
       setPassword('')
       localStorage.setItem('token', token)
       localStorage.setItem('username', nombreUsuario)
+      alert
       navegar(`/`)
-
+      window.location.reload()
     }
     catch(err){
       console.log(err)

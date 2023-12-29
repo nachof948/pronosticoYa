@@ -2,7 +2,6 @@ import React,{useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Hoja de estilos/Formulario.css'
-import Swal from 'sweetalert2'
 
 const FormRegistrarse = () => {
 
@@ -16,14 +15,6 @@ const FormRegistrarse = () => {
     e.preventDefault()
     try{
       await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse', {email, username, password})
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: `Bienvenido/a ${username} a PronósticoYa!`,
-        showConfirmButton: false,
-        timer: 1500,
-        background: '#3b757f', // Color de fondo
-      });
       setEmail('')
       setPassword('')
       setUsername('')
