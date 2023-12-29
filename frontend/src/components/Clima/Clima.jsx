@@ -57,10 +57,8 @@ const Clima = () => {
   const enviarCiudad = async (ciudad) => {
     try{
       const response = await axios.post(`https://pronostico-ya-server.vercel.app/usuario/${username}/agregar-ciudad`, {ciudad})
-      setCargando(true)
       navegar(`/usuario/${username}`)
       window.location.reload()
-      setCargando(false)
     }
     catch(error){
       console.log(error)
