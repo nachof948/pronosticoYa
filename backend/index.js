@@ -11,7 +11,7 @@ require('dotenv').config()
 const PUERTO = process.env.PUERTO
 /* Configuracion de cors */
 app.use(cors({
-    origin:['http://localhost:3000','https://pronostico-ya.vercel.app/'],
+    origin:['http://localhost:3000','https://pronostico-ya.vercel.app'],
     methods:['GET', 'POST','PUT','DELETE'],
     credentials:true
 }))
