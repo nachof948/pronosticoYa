@@ -3,11 +3,13 @@ import axios from 'axios';
 import { Buscador } from '../Buscador/Buscador';
 import { Tarjeta } from '../Tarjeta-clima/Tarjeta';
 import { usuarioContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Clima = () => {
   const { username } = useContext(usuarioContext)
+  const navegar = useNavigate()
   const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
   let urlClima = `https://api.openweathermap.org/data/2.5/weather?&appid=${API_KEY}&lang=es`
   let ciudadUrl = '&q='
@@ -55,6 +57,7 @@ const Clima = () => {
   const enviarCiudad = async (ciudad) => {
     try{
       const response = await axios.post(`https://pronostico-ya-server.vercel.app/usuario/${username}/agregar-ciudad`, {ciudad})
+      navegar(`/usuario/${username}`)
       window.location.reload()
     }
     catch(error){
