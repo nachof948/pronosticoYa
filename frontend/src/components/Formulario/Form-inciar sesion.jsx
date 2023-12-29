@@ -20,7 +20,7 @@ const FormIniciarSesion = () => {
       localStorage.setItem('token', token)
       localStorage.setItem('username', nombreUsuario)
       navegar(`/`)
-      window.location.reload()
+
     }
     catch(err){
       console.log(err)
