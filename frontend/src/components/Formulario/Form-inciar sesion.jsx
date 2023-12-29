@@ -12,7 +12,7 @@ const FormIniciarSesion = () => {
   const manejarInciarSesion = async (e)=>{
     e.preventDefault()
     try{
-      const response = await axios.post('/auth/iniciar-sesion', {username, password})
+      const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', {username, password})
       const token = response.data.token
       const nombreUsuario = response.data.username
       setUsername('')

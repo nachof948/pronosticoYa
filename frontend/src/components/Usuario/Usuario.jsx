@@ -33,7 +33,7 @@ const Usuario = () => {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/usuario/${username}`, {
+      const response = await axios.get(`https://pronostico-ya-server.vercel.app/usuario/${username}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -119,7 +119,7 @@ const eliminarCiudad = async (ciudad) => {
 
   if (confirmacion.isConfirmed) {
     try {
-      await axios.delete(`/usuario/${username}/eliminar`, { data: { ciudad } });
+      await axios.delete(`https://pronostico-ya-server.vercel.app/usuario/${username}/eliminar`, { data: { ciudad } });
       window.location.reload();
     } catch (error) {
       console.log('Error al eliminar', error);

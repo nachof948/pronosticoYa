@@ -15,7 +15,7 @@ const FormRegistrarse = () => {
   const manejarEnvio = async (e)=>{
     e.preventDefault()
     try{
-      await axios.post('/auth/registrarse',{email, username, password})
+      await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse',{email, username, password})
       Swal.fire({
         position: "center",
         icon: "success",
