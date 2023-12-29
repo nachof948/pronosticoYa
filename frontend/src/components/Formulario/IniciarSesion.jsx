@@ -11,7 +11,7 @@ const IniciarSesion = () => {
     </header>
     <section className='section-form'>
       <div className="contenedor-form">
-        <img src={Sol} alt="" />
+        <img className='img-sesion' src={Sol} alt="" />
         <div className='contenedor-input'>
           <FormIniciarSesion />
         </div>

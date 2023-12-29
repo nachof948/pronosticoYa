@@ -35,7 +35,7 @@ const FormRegistrarse = () => {
   }
   return(
     <>
-    <h1 className='form-titulo' style={{textAlign:'center', marginBottom:'1rem'}}>Registrarse</h1>
+    <h1 className='form-titulo' >Registrarse</h1>
     <form className='form-usuario' onSubmit={manejarEnvio}>
       <input type="email" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)}/>
       <input type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=>setUsername(e.target.value)}/>
