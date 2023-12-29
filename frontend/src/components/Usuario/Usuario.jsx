@@ -8,8 +8,7 @@ import './Hoja de estilo/Usuario.css'
 const Usuario = () => {
   const { username, token } = useContext(usuarioContext);
   const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
-  const [ciudadesActuales, setCiudadesActuales] = useState([]);
-  const [ciudadesPronostico, setCiudadesPronostico] = useState([]);
+  const [ciudades, setCiudades]= useState([])
   const [ cargando, setCargando] = useState(false);
 
   /* Fecha */
@@ -20,7 +19,7 @@ const Usuario = () => {
 
   let fechaActual = `${dia}/${mes}/${año}` 
 
- useEffect(() => {
+useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(`/usuario/${username}`, {
@@ -43,7 +42,7 @@ const Usuario = () => {
         const urlIcon = `${urlImg}${ciudad.weather[0].icon}.png`;
         return { ...ciudad, urlIcon };
       });
-      setCiudadesActuales(ciudadesActualesIcon);
+
 
       // Obtener el pronóstico para las mismas ciudades
       const ciudadesPronosticoPromises = ciudades.map(async (ciudad) => {
@@ -60,7 +59,35 @@ const Usuario = () => {
         const urlIcon9 = `${urlImg}${ciudad.list[3].weather[0].icon}.png`;
         return { ...ciudad, urlIcon3, urlIcon6, urlIcon9};
       });
-      setCiudadesPronostico(ciudadesPronosticoIcon);
+
+      
+      const infoCiudades = ciudades.map((ciudadIndex, index) => {
+        return {
+          nombre: ciudadesActualesInfo[index].name,
+          tempActual: (ciudadesActualesInfo[index].main.temp - 273.15).toFixed(1),
+          fechaActual: fechaActual,
+          descripcionActual: ciudadesActualesInfo[index].weather[0].description,
+          urlIcon: `https://openweathermap.org/img/wn/${ciudadesActualesInfo[index].weather[0].icon}.png`,
+          sensacionTermica:(ciudadesActualesIcon[index].main.feels_like - 273.15).toFixed(1),
+          humedad:(ciudadesActualesIcon[index].main.humidity),
+          presion:(ciudadesActualesIcon[index].main.pressure),
+          velViento:(ciudadesActualesIcon[index].main.pressure),
+          tempPronostico3: (ciudadesPronosticoIcon[index].list[1].main.temp - 273.15).toFixed(1),
+          tempPronostico6: (ciudadesPronosticoIcon[index].list[2].main.temp - 273.15).toFixed(1),
+          tempPronostico9: (ciudadesPronosticoIcon[index].list[3].main.temp - 273.15).toFixed(1),
+          urlIcon3: `https://openweathermap.org/img/wn/${ciudadesPronosticoIcon[index].list[1].weather[0].icon}.png`,
+          urlIcon6: `https://openweathermap.org/img/wn/${ciudadesPronosticoIcon[index].list[2].weather[0].icon}.png`,
+          urlIcon9: `https://openweathermap.org/img/wn/${ciudadesPronosticoIcon[index].list[3].weather[0].icon}.png`,
+          descripcionPronostico3:ciudadesPronosticoIcon[index].list[1].weather[0].description,
+          descripcionPronostico6:ciudadesPronosticoIcon[index].list[2].weather[0].description,
+          descripcionPronostico9:ciudadesPronosticoIcon[index].list[3].weather[0].description,
+          pronosticoFecha3: ciudadesPronosticoIcon[index].list[1].dt_txt.substring(8, 10) + '/' + ciudadesPronosticoIcon[index].list[1].dt_txt.substring(5, 7) + '/' + ciudadesPronosticoIcon[index].list[1].dt_txt.substring(0, 4) + ' ' +ciudadesPronosticoIcon[index].list[1].dt_txt.substring(11, 16),
+          pronosticoFecha6: ciudadesPronosticoIcon[index].list[2].dt_txt.substring(8, 10) + '/' + ciudadesPronosticoIcon[index].list[2].dt_txt.substring(5, 7) + '/' + ciudadesPronosticoIcon[index].list[2].dt_txt.substring(0, 4) + ' ' +ciudadesPronosticoIcon[index].list[2].dt_txt.substring(11, 16),
+          pronosticoFecha9: ciudadesPronosticoIcon[index].list[3].dt_txt.substring(8, 10) + '/' + ciudadesPronosticoIcon[index].list[3].dt_txt.substring(5, 7) + '/' + ciudadesPronosticoIcon[index].list[2].dt_txt.substring(0, 4) + ' ' +ciudadesPronosticoIcon[index].list[3].dt_txt.substring(11, 16)
+        };
+      });
+      setCiudades(infoCiudades)
+
     } catch (error) {
       console.log(error);
     }
@@ -71,94 +98,68 @@ const Usuario = () => {
   
 
 
-/*   const eliminarCiudad = async(ciudadActual)=>{
-    const url = `https://api.openweathermap.org/data/2.5/weather?&appid=56fc54e07cbc820b405d4839fad15d5a&lang=es&q=${ciudadActual}`
-    console.log(url);
+  const eliminarCiudad = async(ciudad)=>{
     try{
-      await axios.delete(`/usuario/${username}/eliminar`, {data: {url}})
-      alert(`Se elimino ${ciudadActual}`)
+      await axios.delete(`/usuario/${username}/eliminar`, {data :{ciudad}})
+      alert(`Se elimino ${ciudad}`)
       window.location.reload()
     }
     catch(error){
       console.log('Error')
     }
-  } */
+  } 
 
   return (
     <>
-      {cargando ? (
-        <div className='presentacion'>
-          <div>
-            <h1>PronósticoYa!</h1>
-          </div>
-          <div className="container">
-            <div className="cloud front">
-              <span className="left-front"></span>
-              <span className="right-front"></span>
+    {ciudades.map((ciudad, index)=>{
+      return(
+        <div className='contenedor-tarjeta'>
+          <div className='tarjeta'>
+            
+            <div className='tarjeta-img'>
+              <h3 className='tarjeta-titulo'>{ciudad.nombre}</h3>
+              <p className='tarjeta-fecha'>{ciudad.fechaActual}</p>
+              <h1 className='tarjeta-temp'>{ciudad.tempActual}°C</h1>
+              <p className='tarjeta-descripcion'><img className='tarjeta-icon' src={ciudad.urlIcon} alt="Icon" />{ciudad.descripcionActual}</p>
+              <img className='img' src={imagen} alt="Ciudad" />
             </div>
-            <span className="sun sunshine"></span>
-            <span className="sun"></span>
-            <div className="cloud back">
-              <span className="left-back"></span>
-              <span className="right-back"></span>
+            <div className='tarjeta-info'>
+              <div className="contenedor-info">
+                <div className='mas-detalles'>
+                  <p className='sensacion'>Sensación térmica:<span>{ciudad.sensacionTermica}°C</span></p>
+                  <p className='sensacion'>Humedad: <span>{ciudad.humedad}%</span></p>
+                  <p className='sensacion'>Presion: <span>{ciudad.presion}hPa</span></p>
+                  <p className='sensacion'>Velocidad del Viento:<span>{ciudad.velViento}m/s</span></p>
+                </div>
+                  <button className='btn-agregar' onClick={()=>eliminarCiudad(ciudad.nombre)}>-</button>
+              </div>
+              <hr/>
+              <div className='pronosticos'>
+                <div className="pronostico">
+                  <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
+                  <p className='sensacion pron-detalles'><img src={ciudad.urlIcon3} alt="Icono" />{ciudad.descripcionPronostico3}</p>
+                  <p className='pron-temp'>{ciudad.tempPronostico3}°C</p>
+                </div>
+                <div className="pronostico">
+                  <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
+                  <p className='sensacion pron-detalles'><img src={ciudad.urlIcon6} alt="Icono" />{ciudad.descripcionPronostico6}</p>
+                  <p className='pron-temp'>{ciudad.tempPronostico6}°C</p>
+                </div>
+                <div className="pronostico">
+                  <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha9}hs</p>
+                  <p className='sensacion pron-detalles'><img src={ciudad.urlIcon9} alt="Icono" />{ciudad.descripcionPronostico9}</p>
+                  <p className='pron-temp'>{ciudad.tempPronostico9}°C</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      ) : (
-        <>
+      
+      )
 
-          <a href="/">Buscar más ciudades</a>
-          {ciudadesActuales && 
-            <main className='main-usuario' >
-              <h2>Ciudades</h2>
-              <div className='contenedor-usuario'>
-              {ciudadesActuales.map((ciudad, index) => (
-                <div className="usuario-tarjeta">
-                    <div className='usuario-actual-img' key={index}>
-{/*                     <button onClick={() => eliminarCiudad(ciudad.name)}>-</button> */}
-                      <h3 className='usuario-actual-titulo'>{ciudad.name}</h3>
-                      <p className='usuario-actual-fecha'>{fechaActual}</p>
-                      <h1 className='usuario-actual-temp'>{(ciudad.main.temp - 273.15).toFixed(1)}</h1>
-                      <p className='usuario-actual-descripcion'>
-                        <img className='usuario-actual-icon' src={ciudad.urlIcon} alt="" />
-                        {ciudad.weather[0].description}
-                      </p>
-                      <img className='usuario-fondo' src={imagen} alt="Ciudad" />
-                    </div>
-                    <div className="usuario-info" >
-                    <div className="usuario-detalles">
-                      <p className='usuario-sensacion'>Sensación térmica:<span>{(ciudad.main.feels_like - 273.15).toFixed(1)}°C</span></p>
-                      <p className='usuario-sensacion'>Humedad: <span>{(ciudad.main.humidity)}%</span></p>
-                      <p className='usuario-sensacion'>Presion: <span>{(ciudad.main.pressure)}hPa</span></p>
-                      <p className='usuario-sensacion after'>Velocidad del Viento:<span>{(ciudad.wind.speed)}m/s</span></p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {ciudadesPronostico.map((pronostico, index) => {
-                return (
-                  <div className='usuarios-pronosticos' key={index}>
-                    <div className="usuario-pronostico">
-                      <img src={pronostico.urlIcon3} alt="" />
-                      <h1>{(pronostico.list[1].main.temp - 273.15).toFixed(1)}</h1>
-                    </div>
-                    <div className="usuario-pronostico">
-                      <img src={pronostico.urlIcon6} alt="" />
-                      <h1>{(pronostico.list[2].main.temp - 273.15).toFixed(1)}</h1>
-                    </div>
-                    <div className="usuario-pronostico">
-                      <img src={pronostico.urlIcon9} alt="" />
-                      <h1>{(pronostico.list[3].main.temp - 273.15).toFixed(1)}</h1>
-                    </div>
-                  </div>
-                );
-              })} 
-              </div>
-            </main>
-          }
-          {!ciudadesActuales && <div>No hay ciudades</div>}
-        </>
-      )}
+    })}
+        
+      
     </>
   );
 };
