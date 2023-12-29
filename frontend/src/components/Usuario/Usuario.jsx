@@ -5,8 +5,8 @@ import axios from 'axios';
 import imagen from './Img/Ciudad.jpg'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import './Hoja de estilo/Usuario.css'
 import Swal from 'sweetalert2'
+import './Hoja de estilo/Usuario.css'
 
 
 
@@ -166,7 +166,7 @@ const eliminarCiudad = async (ciudad) => {
       {ciudades.map((ciudad, index)=>{
         return(
         <div className='contenedor-tarjeta'>
-            <div className='tarjeta' data-aos="zoom-in" data-aos-duration="750">
+            <div className='tarjeta-usuario' data-aos="zoom-in" data-aos-duration="750">
               <div className='tarjeta-img'>
                 <h3 className='tarjeta-titulo'>{ciudad.nombre}</h3>
                 <p className='tarjeta-fecha'>{ciudad.fechaActual}</p>
