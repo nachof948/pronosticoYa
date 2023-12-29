@@ -3,7 +3,7 @@ import './Hoja de estilo/NavBar.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { usuarioContext } from '../../App';
 const NavBar = () => {
-  const { usuarioLogueado, username } = useContext(usuarioContext)
+  const { usuarioLogueado, username, token } = useContext(usuarioContext)
   const navegar = useNavigate()
   const cerrarSesion = ()=>{
     localStorage.removeItem('token')

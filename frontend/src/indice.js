@@ -17,3 +17,4 @@ export { IniciarSesion } from './components/Formulario/IniciarSesion.jsx'
 
 /* Usuario */
 export { Usuario } from './components/Usuario/Usuario'
+export { NavBarUsuario } from './components/Usuario/NavBar-usuario.jsx'

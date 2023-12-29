@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { usuarioContext } from '../../App';
+import { NavBarUsuario } from '../../indice'
 import axios from 'axios';
-import imagen from './Ciudad.jpg'
+import imagen from './Img/Ciudad.jpg'
+
 import './Hoja de estilo/Usuario.css'
 
 
 const Usuario = () => {
-  const { username, token } = useContext(usuarioContext);
+  const { username, token, usuarioLogueado } = useContext(usuarioContext);
   const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
   const [ciudades, setCiudades]= useState([])
-  const [ cargando, setCargando] = useState(false);
+  const [ cargando, setCargando] = useState(true);
 
   /* Fecha */
   let fecha = new Date()
@@ -18,6 +20,11 @@ const Usuario = () => {
   let año = fecha.getFullYear()
 
   let fechaActual = `${dia}/${mes}/${año}` 
+    useEffect(() => {
+    setTimeout(() => {
+      setCargando(false);
+    }, 2000);
+  }, []);
 
 useEffect(() => {
   const fetchData = async () => {
@@ -94,10 +101,6 @@ useEffect(() => {
   };
   fetchData();
 }, [username, token]);
-
-  
-
-
   const eliminarCiudad = async(ciudad)=>{
     try{
       await axios.delete(`/usuario/${username}/eliminar`, {data :{ciudad}})
@@ -111,55 +114,78 @@ useEffect(() => {
 
   return (
     <>
-    {ciudades.map((ciudad, index)=>{
-      return(
-        <div className='contenedor-tarjeta'>
-          <div className='tarjeta'>
-            
-            <div className='tarjeta-img'>
-              <h3 className='tarjeta-titulo'>{ciudad.nombre}</h3>
-              <p className='tarjeta-fecha'>{ciudad.fechaActual}</p>
-              <h1 className='tarjeta-temp'>{ciudad.tempActual}°C</h1>
-              <p className='tarjeta-descripcion'><img className='tarjeta-icon' src={ciudad.urlIcon} alt="Icon" />{ciudad.descripcionActual}</p>
-              <img className='img' src={imagen} alt="Ciudad" />
+    {cargando ? ( <div className='presentacion'>
+          <div>
+            <h1>PronósticoYa!</h1>
+          </div>
+          <div className="container">
+            <div className="cloud front">
+              <span className="left-front"></span>
+              <span className="right-front"></span>
             </div>
-            <div className='tarjeta-info'>
-              <div className="contenedor-info">
-                <div className='mas-detalles'>
-                  <p className='sensacion'>Sensación térmica:<span>{ciudad.sensacionTermica}°C</span></p>
-                  <p className='sensacion'>Humedad: <span>{ciudad.humedad}%</span></p>
-                  <p className='sensacion'>Presion: <span>{ciudad.presion}hPa</span></p>
-                  <p className='sensacion'>Velocidad del Viento:<span>{ciudad.velViento}m/s</span></p>
-                </div>
-                  <button className='btn-agregar' onClick={()=>eliminarCiudad(ciudad.nombre)}>-</button>
+            <span className="sun sunshine"></span>
+            <span className="sun"></span>
+            <div className="cloud back">
+              <span className="left-back"></span>
+              <span className="right-back"></span>
+            </div>
+          </div>
+        </div>):(
+    <>
+    <NavBarUsuario/>
+      {ciudades.map((ciudad, index)=>{
+        return(
+          <div className='contenedor-tarjeta'>
+            <div className='tarjeta'>
+              <div className='tarjeta-img'>
+                <h3 className='tarjeta-titulo'>{ciudad.nombre}</h3>
+                <p className='tarjeta-fecha'>{ciudad.fechaActual}</p>
+                <h1 className='tarjeta-temp'>{ciudad.tempActual}°C</h1>
+                <p className='tarjeta-descripcion'><img className='tarjeta-icon' src={ciudad.urlIcon} alt="Icon" />{ciudad.descripcionActual}</p>
+                <img className='img' src={imagen} alt="Ciudad" />
               </div>
-              <hr/>
-              <div className='pronosticos'>
-                <div className="pronostico">
-                  <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
-                  <p className='sensacion pron-detalles'><img src={ciudad.urlIcon3} alt="Icono" />{ciudad.descripcionPronostico3}</p>
-                  <p className='pron-temp'>{ciudad.tempPronostico3}°C</p>
+              <div className='tarjeta-info'>
+                <div className="contenedor-info">
+                  <div className='mas-detalles'>
+                    <p className='sensacion'>Sensación térmica:<span>{ciudad.sensacionTermica}°C</span></p>
+                    <p className='sensacion'>Humedad: <span>{ciudad.humedad}%</span></p>
+                    <p className='sensacion'>Presion: <span>{ciudad.presion}hPa</span></p>
+                    <p className='sensacion'>Velocidad del Viento:<span>{ciudad.velViento}m/s</span></p>
+                  </div>
+                    <button className='btn-agregar' onClick={()=>eliminarCiudad(ciudad.nombre)}>-</button>
                 </div>
-                <div className="pronostico">
-                  <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
-                  <p className='sensacion pron-detalles'><img src={ciudad.urlIcon6} alt="Icono" />{ciudad.descripcionPronostico6}</p>
-                  <p className='pron-temp'>{ciudad.tempPronostico6}°C</p>
-                </div>
-                <div className="pronostico">
-                  <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha9}hs</p>
-                  <p className='sensacion pron-detalles'><img src={ciudad.urlIcon9} alt="Icono" />{ciudad.descripcionPronostico9}</p>
-                  <p className='pron-temp'>{ciudad.tempPronostico9}°C</p>
+                <hr/>
+                <div className='pronosticos'>
+                  <div className="pronostico">
+                    <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
+                    <p className='sensacion pron-detalles'><img src={ciudad.urlIcon3} alt="Icono" />{ciudad.descripcionPronostico3}</p>
+                    <p className='pron-temp'>{ciudad.tempPronostico3}°C</p>
+                  </div>
+                  <div className="pronostico">
+                    <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
+                    <p className='sensacion pron-detalles'><img src={ciudad.urlIcon6} alt="Icono" />{ciudad.descripcionPronostico6}</p>
+                    <p className='pron-temp'>{ciudad.tempPronostico6}°C</p>
+                  </div>
+                  <div className="pronostico">
+                    <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha9}hs</p>
+                    <p className='sensacion pron-detalles'><img src={ciudad.urlIcon9} alt="Icono" />{ciudad.descripcionPronostico9}</p>
+                    <p className='pron-temp'>{ciudad.tempPronostico9}°C</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        )
+      })}
+        {ciudades.length === 0 && 
+        <div className='mensaje-usuario'>
+          <h1>No hay ciudad agregadas</h1>
+          <a href="/">Buscar ciudades</a>
         </div>
-      
-      )
+        }
+      </>
+    )}
 
-    })}
-        
-      
     </>
   );
 };
