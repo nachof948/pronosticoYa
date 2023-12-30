@@ -1,7 +1,9 @@
-import React,{useContext} from 'react';
+import React,{useContext,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usuarioContext } from '../../App';
+import { BurgerButton } from '../NavBar/BurgerButton'
 import icono from './Img/Favicon.png'
+
 
 const NavBarUsuario = () => {
   const { usuarioLogueado, username, token } = useContext(usuarioContext)
@@ -11,7 +13,10 @@ const NavBarUsuario = () => {
     navegar('/')
     window.location.reload()
   }
-
+  const [click, setClick] = useState(false)
+  const manejarClick = ()=>{
+    setClick(!click)
+  }
   return(
     <header>
     {usuarioLogueado && 
@@ -20,9 +25,11 @@ const NavBarUsuario = () => {
         <a href='/'>PronósticoYa!</a>
         <img src={icono} alt="" />
       </div>
-      <nav className="navbar-enlaces">
+      <nav className={click ? "navbar-enlaces active" : "navbar-enlaces"}>
         <button onClick={cerrarSesion}>Cerrar Sesion</button>
       </nav>
+      <BurgerButton click={click} manejarClick={manejarClick} />
+      <div className={`initial ${click ? 'active' : ''}`}></div>
     </div>
     }
   </header>
