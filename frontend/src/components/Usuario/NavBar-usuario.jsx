@@ -27,7 +27,6 @@ const NavBarUsuario = () => {
     }
   </header>
 )
-  
 }
 
 export { NavBarUsuario }

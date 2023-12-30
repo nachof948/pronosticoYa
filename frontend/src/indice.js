@@ -8,6 +8,7 @@ export { Tarjeta } from './components/Tarjeta-clima/Tarjeta'
 /* Pagina Principal */
 export { Home } from './components/Home/Home'
 export { NavBar } from './components/NavBar/NavBar'
+export { BurgerButton } from './components/NavBar/BurgerButton.jsx' 
 
 /* Formulario */
 export { FormRegistrarse } from './components/Formulario/Form-resgistrarse'
