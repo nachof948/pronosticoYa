@@ -11,7 +11,6 @@ const FormIniciarSesion = () => {
   const navegar = useNavigate()
   
   const manejarInciarSesion = async (e)=>{
-    e.preventDefault()
     try{
       const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', {username, password})
       const token = response.data.token
