@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form'
 import './Hoja de estilos/Formulario.css'
 
 const FormRegistrarse = () => {
-
+  const {register, formState:{errors}, handleSubmit, reset } = useForm()
   const[email, setEmail] = useState('')
   const[username, setUsername] = useState('')
   const[password, setPassword] = useState('')
@@ -27,10 +28,28 @@ const FormRegistrarse = () => {
   return(
     <>
     <h1 className='form-titulo' >Registrarse</h1>
-    <form className='form-usuario' onSubmit={manejarEnvio}>
-      <input type="email" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)}/>
-      <input type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=>setUsername(e.target.value)}/>
-      <input type="password" placeholder='Contraseña...' name='password' onChange={(e)=>setPassword(e.target.value)}/>
+    <form className='form-usuario' onSubmit={handleSubmit(manejarEnvio)}>
+      <input 
+      {...register('email', { required:true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i})}
+      type="email" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)}/>
+      <div>
+        {errors.email?.type === 'required' && <p className='error'>El campo email es requerido</p>}
+        {errors.email?.type === 'pattern' && <p className='error'>El correo electrónico no es válido</p>}
+      </div>
+
+      <input {...register('username', {required:true})}
+      type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=>setUsername(e.target.value)}/>
+      <div>
+        {errors.username?.type === 'required'&& <p className='error'>El campo nombre es requerido</p>}
+      </div>
+      
+      
+      <input {...register('password', {required:true})} 
+      type="password" placeholder='Contraseña...' name='password' onChange={(e)=>setPassword(e.target.value)}/>
+      <div>
+        {errors.password?.type === 'required'&& <p className='error'>El campo contraseña es requerido</p>}
+      </div>
+      
       <button type='submit'>Registrarse</button>
     </form>
     <div className='form-pregunta'>
