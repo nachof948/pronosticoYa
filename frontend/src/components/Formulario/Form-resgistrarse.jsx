@@ -29,14 +29,12 @@ const FormRegistrarse = () => {
     <h1 className='form-titulo' >Registrarse</h1>
     <form className='form-usuario' onSubmit={handleSubmit(manejarEnvio)}>
       <input 
-      {...register('email', { required:true,     pattern: {
-        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: 'El correo electrónico no es válido'
-      }})}
-      type="email" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)}/>
+      {...register('email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
+      type="text" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)}
+      />
       <div>
         {errors.email?.type === 'required' && <p className='error'>El campo email es requerido</p>}
-        {errors.email?.type === 'pattern' && <p className='error'>${errors.email.message}</p>}
+        {errors.email?.type === 'pattern' && <p className='error'>El correo electrónico no es válido</p>}
       </div>
 
       <input {...register('username', {required:true})}
