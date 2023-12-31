@@ -7,6 +7,7 @@ const FormIniciarSesion = () => {
   const { register, formState:{errors}, handleSubmit, reset} = useForm()
   const[username, setUsername] = useState('')
   const[password, setPassword] = useState('')
+  const[error, setError] = useState(false)
 
   const navegar = useNavigate()
   
@@ -22,8 +23,13 @@ const FormIniciarSesion = () => {
       navegar(`/`)
       window.location.reload()
     }
-    catch(err){
-      console.log(err)
+    catch(error){ 
+        if (error.response && error.response.status === 401) {
+          setError(true);
+        } else {
+          console.log(error);
+        }
+      
     }
   }
 
@@ -40,6 +46,7 @@ const FormIniciarSesion = () => {
         <input {...register('password', {required:true})}
         type="password" placeholder='Contraseña...' name='password' onChange={(e)=> setPassword(e.target.value)} />
         <div>
+          {error && <p className='error-email'>Usuario o contraseña incorrecta</p>}
           {errors.password?.type === 'required' && <p className='error'>El campo contraseña es requerido</p>}
         </div>
         <button type='submit'>Iniciar Sesion</button>

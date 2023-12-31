@@ -5,23 +5,28 @@ import { useForm } from 'react-hook-form'
 import './Hoja de estilos/Formulario.css'
 
 const FormRegistrarse = () => {
-  const {register, formState:{errors}, handleSubmit, reset } = useForm()
+  const {register, formState:{errors}, handleSubmit} = useForm()
   const[email, setEmail] = useState('')
   const[username, setUsername] = useState('')
   const[password, setPassword] = useState('')
+  const[error, setError] = useState(false)
+  
 
   const navegar = useNavigate()
 
-  const manejarEnvio = async (e)=>{
-    try{
-      await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse', {email, username, password})
+  const manejarEnvio = async () => {
+    try {
+      const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse', { email, username, password })
       setEmail('')
       setPassword('')
       setUsername('')
       navegar('/auth/iniciar-sesion')
-    }
-    catch(err){
-      console.log(err)
+    } catch (error) {
+      if (error.response && error.response.status === 500) {
+        setError(true);
+      } else {
+        console.log(error);
+      }
     }
   }
   return(
@@ -33,6 +38,7 @@ const FormRegistrarse = () => {
       type="text" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)}
       />
       <div>
+        {error && <p className='error-email'>Este email ya esta registrado</p>}
         {errors.email?.type === 'required' && <p className='error'>El campo email es requerido</p>}
         {errors.email?.type === 'pattern' && <p className='error'>El correo electrónico no es válido</p>}
       </div>

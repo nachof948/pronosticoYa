@@ -119,6 +119,11 @@
     color: white;
     font-weight: 400;
 }
+.error-email{
+    color: red;
+    font-weight: 400;
+    font-size: 1.1rem;
+}
 @media (max-width:1400px){
     .form-usuario input{
         width: 20rem;
