@@ -7,7 +7,8 @@ const ciudadElegidaSchema = new mongoose.Schema({
     },
     ciudades: [
         {
-            type: String
+            type: String,
+            unique: true
         }
     ]
 });

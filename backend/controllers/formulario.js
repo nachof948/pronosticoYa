@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario')
 require('dotenv').config()
 
+
+
 /* Registrarse */
 const registrarse = async(req, res)=>{
     try{
@@ -15,10 +17,10 @@ const registrarse = async(req, res)=>{
         /* Guardar el usuario en la base de datos */
         await nuevoUsuario.save()
         /* Enviamos un mensaje de confirmacion */
-        res.status(201).send('El usuario se registro exitosamente')
+        res.status(200).json({ status: 'success', message: 'El usuario se registró exitosamente' })
     }
     catch(err){
-        res.status(500).send('Error al registrarse'+ err)
+        res.status(500).json({message:'El email ya se encuentra registrado'})
     }
 }
 
