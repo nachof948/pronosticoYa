@@ -36,7 +36,7 @@ const iniciarSesion = async(req, res) => {
             return res.status(401).send('Usuario o contraseña incorrecta')
         }
         /* Si el usuario existe validamos lo contraseña */
-        const validarPassword =  bcrypt.compare(password, buscarUsuario.password)
+        const validarPassword = await bcrypt.compare(password, buscarUsuario.password)
         /* Si la contraseña no coincide */
         if(!validarPassword){
             return res.status(401).send('Usuario o contraseña incorrecta')
