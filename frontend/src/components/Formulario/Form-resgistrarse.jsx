@@ -36,7 +36,7 @@ const FormRegistrarse = () => {
     <form className='form-usuario' onSubmit={handleSubmit(manejarEnvio)}>
       <input 
       {...register('email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
-      type="text" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)}
+      type="text" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)} autoComplete='off'
       />
       <div>
         {error && <p className='error-email'>Este email ya esta registrado</p>}
@@ -45,14 +45,14 @@ const FormRegistrarse = () => {
       </div>
 
       <input {...register('username', {required:true})}
-      type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=>setUsername(e.target.value)}/>
+      type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=>setUsername(e.target.value)} autoComplete='off'/>
       <div>
         {errors.username?.type === 'required'&& <p className='error'>El campo nombre es requerido</p>}
       </div>
       
       
       <input {...register('password', {required:true})} 
-      type="password" placeholder='Contraseña...' name='password' onChange={(e)=>setPassword(e.target.value)}/>
+      type="password" placeholder='Contraseña...' name='password' onChange={(e)=>setPassword(e.target.value)} autoComplete='off'/>
       <div>
         {errors.password?.type === 'required'&& <p className='error'>El campo contraseña es requerido</p>}
       </div>

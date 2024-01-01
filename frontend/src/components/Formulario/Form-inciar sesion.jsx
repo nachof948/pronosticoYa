@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
@@ -15,16 +15,6 @@ const FormIniciarSesion = () => {
 
   const navegar = useNavigate();
 
-  useEffect(() => {
-    if (isDirty) {
-      if (username === 'username') { 
-        setValue('username', username);
-      }
-      if (password === 'password') { 
-        setValue('password', password);
-      }
-    }
-  }, [isDirty, username, password, setValue]);
   
   const manejarInciarSesion = async (e)=>{
     try{
@@ -53,16 +43,16 @@ const FormIniciarSesion = () => {
       <h1 className='form-titulo' style={{textAlign:'center'}}>Iniciar Sesion</h1>
       <form className='form-usuario' onSubmit={handleSubmit(manejarInciarSesion)}>
         <input {...register('username', {required:true})}
-        type="text" placeholder='Nombre de usuario...' name='username'value={username} onChange={(e)=> setUsername(e.target.value)} autoComplete={username}/>
+        type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=> setUsername(e.target.value)} autoComplete='off'/>
         <div>
-          {errors.username?.type === 'required' && !isValid && <p className='error'>El campo nombre de usuario es requerido</p>}
+          {errors.username?.type === 'required' &&  <p className='error'>El campo nombre de usuario es requerido</p>}
         </div>
 
         <input {...register('password', {required:true})}
-        type="password" placeholder='Contraseña...' value={password} name='password' onChange={(e)=> setPassword(e.target.value)} autoComplete={password} />
+        type="password" placeholder='Contraseña...'  name='password' onChange={(e)=> setPassword(e.target.value)} autoComplete='off'/>
         <div>
           {error && <p className='error-email'>Usuario o contraseña incorrecta</p>}
-          {errors.password?.type === 'required' && !isValid && <p className='error'>El campo contraseña es requerido</p>}
+          {errors.password?.type === 'required' &&  <p className='error'>El campo contraseña es requerido</p>}
         </div>
         <button type='submit'>Iniciar Sesion</button>
       </form>
