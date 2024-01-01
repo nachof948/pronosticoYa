@@ -61,6 +61,9 @@ const Clima = () => {
       window.location.reload()
     }
     catch(error){
+      if(error.response === 400){
+        alert(`La ciudad de ${ciudad} ya se encuentra en su perfil`)
+      }
       console.log(error)
     }
   }
