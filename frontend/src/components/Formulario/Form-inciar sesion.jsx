@@ -36,7 +36,7 @@ const FormIniciarSesion = () => {
       <h1 className='form-titulo' style={{textAlign:'center'}}>Iniciar Sesion</h1>
       <form className='form-usuario' onSubmit={handleSubmit(manejarInciarSesion)}>
         <input
-          {...register('email', { required: true })}
+          {...register('email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
           type="text"
           placeholder='Email...'
           name='email'
