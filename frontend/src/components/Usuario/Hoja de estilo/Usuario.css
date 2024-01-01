@@ -10,6 +10,9 @@
 .presentacion h1{
     font-size: 3rem;
 }
+.swal2-shown {
+    overflow: hidden;
+}
 .container {
     display: flex;
     align-items: center;
@@ -116,15 +119,15 @@
     background-color: transparent;
     color: white;
 }
-.usuario-titulo h1{
-    font-weight: 400;
-    font-size: 3rem;
-}
 .usuario-titulo{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    margin: 1rem 0rem;
+}
+.usuario-titulo h1{
+    font-weight: 400;
+    font-size: 3rem;
 }
 .usuario-titulo a{
     font-weight: 500;
@@ -136,7 +139,7 @@
     font-size: 1.4rem;
     border: 1px solid white;
     transition: all 250ms;
-    margin-top: 0.7rem;
+    margin-top: 1rem;
 }
 .usuario-titulo a:hover{
     background-color: transparent;
@@ -146,10 +149,15 @@
     display: flex;
     align-items: flex-start;
     background-color: #325158;
-    width: 70%;
+    width: 80%;
     height: 30rem;
     border-radius: 25px;
     transition: height 400ms;
+}
+@media (max-width:1300px) {
+    .tarjeta-usuario{
+        width: 90%;
+    }
 }
 @media (max-width:1024px) {
     .tarjeta-usuario{
@@ -157,12 +165,45 @@
         align-items: center;
         background-color: #325158;
         width: fit-content;
-        height: 30rem;
-        overflow: hidden;
+        height: 28rem;
         transition: all 400ms;
+        z-index: 0;
     }
-    
     .tarjeta-usuario:hover{
         height: fit-content;
+    }
+    .tarjeta-usuario .usuario-sensacion, 
+    .usuario-pronostico, .btn-eliminar, 
+    .hr-usuario, .usuario-tarjeta-info{
+        display: none;
+    }
+    .tarjeta-usuario:hover .usuario-sensacion,
+    .tarjeta-usuario:hover .pronostico,
+    .tarjeta-usuario:hover .btn-eliminar,
+    .tarjeta-usuario:hover .hr-usuario,
+    .tarjeta-usuario:hover .tarjeta-info {
+        display: flex;
+    }
+    .mensaje-usuario h1{
+        font-size: 2rem;
+    }
+    .usuario-titulo h1{
+        font-size: 2.5rem;
+    }
+}
+@media (max-width:380px) {
+    .mensaje-usuario h1{
+        font-size: 1.7rem;
+    }
+    .mensaje-usuario a{
+        font-size: 1.2rem;
+    }
+}
+@media (max-width:330px) {
+    .tarjeta-usuario .img{
+        width: 95vw;
+    }
+    .presentacion h1{
+        font-size: 2.5rem;
     }
 }

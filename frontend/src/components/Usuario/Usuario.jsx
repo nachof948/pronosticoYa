@@ -15,6 +15,7 @@ const Usuario = () => {
   const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
   const [ciudades, setCiudades]= useState([])
   const [ cargando, setCargando] = useState(true);
+  const [clickear, setClickear] = useState(false);
   useEffect(()=>{AOS.init()},[])
 
   /* Fecha */
@@ -165,8 +166,8 @@ const eliminarCiudad = async (ciudad) => {
       }
       {ciudades.map((ciudad, index)=>{
         return(
-        <div className='contenedor-tarjeta'>
-            <div className='tarjeta-usuario' data-aos="zoom-in" data-aos-duration="750">
+        <div className='contenedor-tarjeta' >
+            <div className='tarjeta-usuario' data-aos="zoom-in" data-aos-duration="750" >
               <div className='tarjeta-img'>
                 <h3 className='tarjeta-titulo'>{ciudad.nombre}</h3>
                 <p className='tarjeta-fecha'>{ciudad.fechaActual}</p>
@@ -174,29 +175,29 @@ const eliminarCiudad = async (ciudad) => {
                 <p className='tarjeta-descripcion'><img className='tarjeta-icon' src={ciudad.urlIcon} alt="Icon" />{ciudad.descripcionActual}</p>
                 <img className='img' src={imagen} alt="Ciudad" />
               </div>
-              <div className='tarjeta-info'>
+              <div className='tarjeta-info usuario-tarjeta-info'>
                 <div className="contenedor-info">
                   <div className='mas-detalles'>
-                    <p className='sensacion'>Sensación térmica:<span>{ciudad.sensacionTermica}°C</span></p>
-                    <p className='sensacion'>Humedad: <span>{ciudad.humedad}%</span></p>
-                    <p className='sensacion'>Presion: <span>{ciudad.presion}hPa</span></p>
-                    <p className='sensacion'>Velocidad del Viento:<span>{ciudad.velViento}m/s</span></p>
+                    <p className='sensacion usuario-sensacion'>Sensación térmica:<span>{ciudad.sensacionTermica}°C</span></p>
+                    <p className='sensacion usuario-sensacion'>Humedad: <span>{ciudad.humedad}%</span></p>
+                    <p className='sensacion usuario-sensacion'>Presion: <span>{ciudad.presion}hPa</span></p>
+                    <p className='sensacion usuario-sensacion'>Velocidad del Viento:<span>{ciudad.velViento}m/s</span></p>
                   </div>
-                    <button className='btn-agregar' onClick={()=>eliminarCiudad(ciudad.nombre)}>-</button>
+                    <button className='btn-agregar btn-eliminar' onClick={()=>eliminarCiudad(ciudad.nombre)}>-</button>
                 </div>
-                <hr/>
+                <hr className='hr-usuario'/>
                 <div className='pronosticos'>
-                  <div className="pronostico">
+                  <div className="pronostico usuario-pronostico">
                     <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
                     <p className='sensacion pron-detalles'><img src={ciudad.urlIcon3} alt="Icono" />{ciudad.descripcionPronostico3}</p>
                     <p className='pron-temp'>{ciudad.tempPronostico3}°C</p>
                   </div>
-                  <div className="pronostico">
+                  <div className="pronostico usuario-pronostico">
                     <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha3}hs</p>
                     <p className='sensacion pron-detalles'><img src={ciudad.urlIcon6} alt="Icono" />{ciudad.descripcionPronostico6}</p>
                     <p className='pron-temp'>{ciudad.tempPronostico6}°C</p>
                   </div>
-                  <div className="pronostico">
+                  <div className="pronostico usuario-pronostico">
                     <p className='sensacion pron-fecha'>{ciudad.pronosticoFecha9}hs</p>
                     <p className='sensacion pron-detalles'><img src={ciudad.urlIcon9} alt="Icono" />{ciudad.descripcionPronostico9}</p>
                     <p className='pron-temp'>{ciudad.tempPronostico9}°C</p>
