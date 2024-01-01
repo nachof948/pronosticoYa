@@ -150,6 +150,11 @@ hr{
     background-color: white;
     color: #325158;
 }
+.pron-detalles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 /* MEDIA-QUERIES */
 @media (max-width: 1550px) {
     .pron-fecha{
