@@ -1,58 +1,65 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form'
-import './Hoja de estilos/Formulario.css'
+import { useForm } from 'react-hook-form';
+import './Hoja de estilos/Formulario.css';
 
 const FormIniciarSesion = () => {
-  const { register, formState: { errors, isDirty, isValid }, handleSubmit, setValue } = useForm({
-    mode: 'onChange' // Activar detección de cambios para validar mientras se escribe
+  const { register, formState: { errors }, handleSubmit } = useForm({
+    mode: 'all',
   });
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
   const navegar = useNavigate();
 
-  
-  const manejarInciarSesion = async (e)=>{
-    try{
-      const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', {username, password})
-      const token = response.data.token
-      const nombreUsuario = response.data.username
-      setUsername('')
-      setPassword('')
-      localStorage.setItem('token', token)
-      localStorage.setItem('username', nombreUsuario)
-      navegar(`/`)
-      window.location.reload()
+  const manejarInciarSesion = async (values) => {
+    try {
+      const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', values);
+      const token = response.data.token;
+      const nombreUsuario = response.data.username;
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', nombreUsuario);
+      navegar(`/`);
+      window.location.reload();
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError(true);
+      } else {
+        console.log(error);
+      }
     }
-    catch(error){ 
-        if (error.response && error.response.status === 401) {
-          setError(true);
-        } else {
-          console.log(error);
-        }
-      
-    }
-  }
+  };
 
-  return(
+  return (
     <>
       <h1 className='form-titulo' style={{textAlign:'center'}}>Iniciar Sesion</h1>
       <form className='form-usuario' onSubmit={handleSubmit(manejarInciarSesion)}>
-        <input {...register('username', {required:true})}
-        type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=> setUsername(e.target.value)} autoComplete='off'/>
+        <input
+          {...register('username', { required: true })}
+          type="text"
+          placeholder='Nombre de usuario...'
+          name='username'
+          // Elimina el controlador innecesario
+        />
         <div>
-          {errors.username?.type === 'required' &&  <p className='error'>El campo nombre de usuario es requerido</p>}
+          {errors.username?.type === 'required' && (
+            <p className='error'>El campo nombre de usuario es requerido</p>
+          )}
         </div>
 
-        <input {...register('password', {required:true})}
-        type="password" placeholder='Contraseña...'  name='password' onChange={(e)=> setPassword(e.target.value)} autoComplete='off'/>
+        <input
+          {...register('password', { required: true })}
+          type="password"
+          placeholder='Contraseña...'
+          name='password'
+          // Elimina el controlador innecesario
+        />
         <div>
           {error && <p className='error-email'>Usuario o contraseña incorrecta</p>}
-          {errors.password?.type === 'required' &&  <p className='error'>El campo contraseña es requerido</p>}
+          {errors.password?.type === 'required' && (
+            <p className='error'>El campo contraseña es requerido</p>
+          )}
         </div>
         <button type='submit'>Iniciar Sesion</button>
       </form>
@@ -64,7 +71,7 @@ const FormIniciarSesion = () => {
       <a href="/">Volver al Inicio</a>
     </div>
     </>
-  )
-}
+  );
+};
 
-export { FormIniciarSesion }
+export { FormIniciarSesion };
