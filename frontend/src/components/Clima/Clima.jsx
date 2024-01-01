@@ -64,8 +64,11 @@ const Clima = () => {
     catch(error){
       if (error.response && error.response.status === 400 ) {
         Swal.fire({
+          title: `La ciudad de ${ciudad} ya se encuentra en su perfil`,
           icon: "info",
-          text: `La ciudad de ${ciudad} ya se encuentra en su perfil`
+          text: "",
+          confirmButtonColor: "#3b757f", 
+          background: '#3b757f',
         });
       } else {
         console.log(error);

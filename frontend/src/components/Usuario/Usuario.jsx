@@ -137,7 +137,7 @@ const eliminarCiudad = async (ciudad) => {
 
   return (
     <>
-    {cargando ? ( <div className='presentacion'>
+    {cargando && !ciudades ? ( <div className='presentacion'>
           <div>
             <h1>PronósticoYa!</h1>
           </div>
