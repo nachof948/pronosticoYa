@@ -34,13 +34,13 @@ const iniciarSesion = async(req, res) => {
         const buscarUsuario = await Usuario.findOne({email})
         /* Si no esta el usuario en la base de datos */
         if(!buscarUsuario){
-            return res.status(401).send('Usuario o contraseña incorrecta')
+            return res.status(401).send('Email o contraseña incorrecta')
         }
         /* Si el usuario existe validamos lo contraseña */
         const validarPassword = await bcrypt.compare(password, buscarUsuario.password)
         /* Si la contraseña no coincide */
         if(!validarPassword){
-            return res.status(401).send('Usuario o contraseña incorrecta')
+            return res.status(401).send('Email o contraseña incorrecta')
         }
         /* Eligimos la informacion que vamos a tomar del usuario  */
         const infoUsuario = {
