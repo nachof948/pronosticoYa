@@ -36,10 +36,10 @@ const FormIniciarSesion = () => {
       <h1 className='form-titulo' style={{textAlign:'center'}}>Iniciar Sesion</h1>
       <form className='form-usuario' onSubmit={handleSubmit(manejarInciarSesion)}>
         <input
-          {...register('username', { required: true })}
+          {...register('email', { required: true })}
           type="text"
-          placeholder='Nombre de usuario...'
-          name='username'
+          placeholder='Email...'
+          name='email'
           // Elimina el controlador innecesario
         />
         <div>
