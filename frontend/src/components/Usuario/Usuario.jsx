@@ -27,7 +27,7 @@ const Usuario = () => {
     useEffect(() => {
     setTimeout(() => {
       setCargando(false);
-    }, 3000);
+    }, 3500);
   }, []);
 
 useEffect(() => {

@@ -4,6 +4,7 @@
     align-items: center;
     margin-top: 5rem;
     user-select: none;
+    overflow-x: hidden;
 }
 .contenedor-tarjeta{
     display: flex;
@@ -84,6 +85,7 @@
     text-transform: capitalize;
     display: flex;
     align-items: center;
+    text-wrap: nowrap;
 }
 .mas-detalles p{
     margin-top: 0.5rem;
@@ -205,6 +207,9 @@ hr{
         width: 76vw;
         margin-left: 0.6rem;
     }
+    .contenedor-info{
+        padding-left: 0.5rem;
+    }
 }
 @media (max-width:750px) {
     hr{
@@ -242,10 +247,17 @@ hr{
         width: 16rem;
     }
     .pronostico{
-        width: 60vw;
+        width: 65vw;
     }
     .img{
-        width: 80.7vw;
+        width: 90vw;
+    }
+    hr{
+        width: 83vw;
+        margin-left: 0.6rem;
+    }
+    .sensacion{
+        font-size: 1.1rem;
     }
 }
 @media (max-width:400px) {
@@ -255,30 +267,49 @@ hr{
     .pronostico{
         width: 65vw;
     }
-    hr{
-        width: 70vw;
-        margin-left: 0.6rem;
-    }
     .sensacion{
         font-size: 1rem;
     }
+    .btn-agregar{
+        padding: 0.4rem 0.9rem;
+        border-radius: 15px;
+    }
+    hr{
+        width: 83vw;
+    }
 }
-@media (max-width:350px) {
+@media (max-width:380px) {
     input{
         width: 11rem;
-
     }
     .pronostico{
         width: 65vw;
     }
     hr{
-        width: 70vw;
-        margin-left: 0.6rem;
+        width: 80vw;
+        margin-left: 0.5rem;
     }
     .sensacion{
         font-size: 1rem;
     }
-    .img{
-        height: 28rem;
+    .tarjeta{
+        width: 90vw;
+    }
+    .contenedor-info{
+        padding-left: 0.2rem;
+    }
+}
+@media (max-width:380px) {
+    .pronostico{
+        width: 75vw;
+    }
+    hr{
+        width: 82vw;
+    }
+    .sensacion{
+        font-size: 1rem;
+    }
+    .sensacion{
+        font-size: 0.9rem;
     }
 }

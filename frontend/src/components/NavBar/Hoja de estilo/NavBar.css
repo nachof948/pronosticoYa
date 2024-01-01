@@ -117,3 +117,8 @@
         transition: all .5s ease;
     }
 }
+@media (max-width:400px) {
+    .navbar-titulo a{
+        font-size: 1.5rem;
+    }
+}
