@@ -34,20 +34,24 @@ const enviarCiudad = async (req, res) => {
         if (!usuario) {
             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
         }
-        
-        let ciudadesUsuario = await Ciudad.findOne({ usuario: usuario._id });
+
+        const ciudadesUsuario = await Ciudad.findOne({ usuario: usuario._id });
 
         if (!ciudadesUsuario) {
-            ciudadesUsuario = await Ciudad.create({
+            await Ciudad.create({
                 usuario: usuario._id,
-                ciudades: ciudad
+                ciudades: [ciudad]
             });
+            return res.status(200).json({ mensaje: 'Ciudad agregada correctamente' });
         } else {
-            ciudadesUsuario.ciudades.push(ciudad);
-            await ciudadesUsuario.save();
+            if (ciudadesUsuario.ciudades.includes(ciudad)) {
+                return res.status(400).json({ mensaje: 'Esta ciudad ya está en tu perfil' });
+            } else {
+                ciudadesUsuario.ciudades.push(ciudad);
+                await ciudadesUsuario.save();
+                return res.status(200).json({ mensaje: 'Ciudad agregada correctamente' });
+            }
         }
-
-        return res.status(200).json({ mensaje: 'Ciudades agregadas correctamente' });
     } catch (error) {
         return res.status(500).json({ mensaje: 'Error al obtener la ciudad' });
     }
