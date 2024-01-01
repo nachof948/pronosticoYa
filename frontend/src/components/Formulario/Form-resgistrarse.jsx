@@ -6,18 +6,18 @@ import { useForm } from 'react-hook-form'
 import './Hoja de estilos/Formulario.css'
 
 const FormRegistrarse = () => {
-  const {register, formState:{errors}, handleSubmit} = useForm()
-  const[email, setEmail] = useState('')
-  const[username, setUsername] = useState('')
-  const[password, setPassword] = useState('')
+  const { register, formState: { errors }, handleSubmit } = useForm({
+    mode: 'all',
+  });
+
   const[error, setError] = useState(false)
   
 
   const navegar = useNavigate()
 
-  const manejarEnvio = async () => {
+  const manejarEnvio = async (values) => {
     try {
-      const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse', { email, username, password })
+      const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse', values)
       setEmail('')
       setPassword('')
       setUsername('')
@@ -36,7 +36,7 @@ const FormRegistrarse = () => {
     <form className='form-usuario' onSubmit={handleSubmit(manejarEnvio)}>
       <input 
       {...register('email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
-      type="text" placeholder='Email...' name='email' onChange={(e)=>setEmail(e.target.value)} autoComplete='off'
+      type="text" placeholder='Email...' name='email' 
       />
       <div>
         {error && <p className='error-email'>Este email ya esta registrado</p>}
@@ -45,14 +45,14 @@ const FormRegistrarse = () => {
       </div>
 
       <input {...register('username', {required:true})}
-      type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=>setUsername(e.target.value)} autoComplete='off'/>
+      type="text" placeholder='Nombre de usuario...' name='username' />
       <div>
         {errors.username?.type === 'required'&& <p className='error'>El campo nombre es requerido</p>}
       </div>
       
       
       <input {...register('password', {required:true})} 
-      type="password" placeholder='Contraseña...' name='password' onChange={(e)=>setPassword(e.target.value)} autoComplete='off'/>
+      type="password" placeholder='Contraseña...' name='password' />
       <div>
         {errors.password?.type === 'required'&& <p className='error'>El campo contraseña es requerido</p>}
       </div>
