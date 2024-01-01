@@ -4,6 +4,7 @@ import { Buscador } from '../Buscador/Buscador';
 import { Tarjeta } from '../Tarjeta-clima/Tarjeta';
 import { usuarioContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 
 
@@ -62,7 +63,10 @@ const Clima = () => {
     }
     catch(error){
       if (error.response && error.response.status === 400 ) {
-        alert(`La ciudad de ${ciudad} ya se encuentra en su perfil`);
+        Swal.fire({
+          icon: "info",
+          text: `La ciudad de ${ciudad} ya se encuentra en su perfil`
+        });
       } else {
         console.log(error);
       }
