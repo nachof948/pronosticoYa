@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 import './Hoja de estilos/Formulario.css'
 const FormIniciarSesion = () => {
-  const { register, formState:{errors}, handleSubmit, reset} = useForm()
+  const { register, formState:{errors}, handleSubmit} = useForm()
   const[username, setUsername] = useState('')
   const[password, setPassword] = useState('')
   const[error, setError] = useState(false)

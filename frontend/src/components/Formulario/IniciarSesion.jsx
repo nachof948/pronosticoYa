@@ -3,6 +3,7 @@ import { FormIniciarSesion } from './Form-inciar sesion';
 import Icono from './Imagenes/Favicon.png'
 import Sol from './Imagenes/Sol.jpg'
 const IniciarSesion = () => {
+  
   return(
     <div>
           <header className='header-form'>

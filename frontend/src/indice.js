@@ -12,7 +12,7 @@ export { BurgerButton } from './components/NavBar/BurgerButton.jsx'
 
 /* Formulario */
 export { FormRegistrarse } from './components/Formulario/Form-resgistrarse'
-export { FormIniciarSesion } from './components/Formulario/Form-inciar sesion'
+export { FormIniciarSesion } from './components/Formulario/Form-inciar sesion.jsx'
 export { Registrarse } from './components/Formulario/Registrarse.jsx'
 export { IniciarSesion } from './components/Formulario/IniciarSesion.jsx'
 

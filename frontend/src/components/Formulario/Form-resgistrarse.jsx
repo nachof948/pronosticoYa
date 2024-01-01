@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
+
 import './Hoja de estilos/Formulario.css'
 
 const FormRegistrarse = () => {
