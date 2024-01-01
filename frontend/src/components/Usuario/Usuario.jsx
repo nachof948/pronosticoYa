@@ -27,7 +27,7 @@ const Usuario = () => {
     useEffect(() => {
     setTimeout(() => {
       setCargando(false);
-    }, 2000);
+    }, 3000);
   }, []);
 
 useEffect(() => {
@@ -137,7 +137,7 @@ const eliminarCiudad = async (ciudad) => {
 
   return (
     <>
-    {cargando && !ciudades ? ( <div className='presentacion'>
+    {cargando ? ( <div className='presentacion'>
           <div>
             <h1>PronósticoYa!</h1>
           </div>
