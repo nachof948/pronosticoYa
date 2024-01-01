@@ -18,9 +18,6 @@ const FormRegistrarse = () => {
   const manejarEnvio = async (values) => {
     try {
       const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse', values)
-      setEmail('')
-      setPassword('')
-      setUsername('')
       navegar('/auth/iniciar-sesion')
     } catch (error) {
       if (error.response && error.response.status === 500) {
