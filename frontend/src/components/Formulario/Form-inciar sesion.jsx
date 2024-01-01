@@ -53,13 +53,13 @@ const FormIniciarSesion = () => {
       <h1 className='form-titulo' style={{textAlign:'center'}}>Iniciar Sesion</h1>
       <form className='form-usuario' onSubmit={handleSubmit(manejarInciarSesion)}>
         <input {...register('username', {required:true})}
-        type="text" placeholder='Nombre de usuario...' name='username' onChange={(e)=> setUsername(e.target.value)} autoComplete='username' />
+        type="text" placeholder='Nombre de usuario...' name='username'value={username} onChange={(e)=> setUsername(e.target.value)} autoComplete='username' />
         <div>
           {errors.username?.type === 'required' && !isValid && <p className='error'>El campo nombre de usuario es requerido</p>}
         </div>
 
         <input {...register('password', {required:true})}
-        type="password" placeholder='Contraseña...' name='password' onChange={(e)=> setPassword(e.target.value)} autoComplete='password' />
+        type="password" placeholder='Contraseña...' value={password} name='password' onChange={(e)=> setPassword(e.target.value)} autoComplete='password' />
         <div>
           {error && <p className='error-email'>Usuario o contraseña incorrecta</p>}
           {errors.password?.type === 'required' && !isValid && <p className='error'>El campo contraseña es requerido</p>}
