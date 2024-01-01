@@ -43,9 +43,10 @@ const FormIniciarSesion = () => {
           // Elimina el controlador innecesario
         />
         <div>
-          {errors.username?.type === 'required' && (
-            <p className='error'>El campo nombre de usuario es requerido</p>
-          )}
+        <div>
+        {errors.email?.type === 'required' && <p className='error'>El campo email es requerido</p>}
+        {errors.email?.type === 'pattern' && <p className='error'>El correo electrónico no es válido</p>}
+      </div>
         </div>
 
         <input
