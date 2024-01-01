@@ -26,11 +26,12 @@ const registrarse = async(req, res)=>{
 
 /* Iniciar sesion */
 const iniciarSesion = async(req, res) => {
+    /* Tomamos los datos del formulario */
+    const {email, password} = req.body
+    
     try{
-        /* Tomamos los datos del formulario */
-        const {username, password} = req.body
         /* Buscamos ese usuario en la base de datos */
-        const buscarUsuario = await Usuario.findOne({username})
+        const buscarUsuario = await Usuario.findOne({email})
         /* Si no esta el usuario en la base de datos */
         if(!buscarUsuario){
             return res.status(401).send('Usuario o contraseña incorrecta')
