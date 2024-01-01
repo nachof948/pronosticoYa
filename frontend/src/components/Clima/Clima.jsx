@@ -61,11 +61,11 @@ const Clima = () => {
       window.location.reload()
     }
     catch(error){
-      if(error.response === 400){
-        alert(`La ciudad de ${ciudad} ya se encuentra en su perfil`)
+      if (error.response && error.response.status === 400 ) {
+        alert(`La ciudad de ${ciudad} ya se encuentra en su perfil`);
+      } else {
+        console.log(error);
       }
-      console.log(error)
-    }
   }
   return(
     <>
