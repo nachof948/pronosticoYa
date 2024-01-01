@@ -67,6 +67,7 @@ const Clima = () => {
         console.log(error);
       }
   }
+}
   return(
     <>
       <Buscador nuevaUbicacion = {obtenerUbicacion} />
