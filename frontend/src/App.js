@@ -23,7 +23,7 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='/auth/registrarse' element={<Registrarse />}></Route>
         <Route path='/auth/iniciar-sesion' element={<IniciarSesion />}></Route>
-        <Route path={`/usuario/${username}`} element={<Usuario />}></Route>
+        <Route path={`/usuario/misciudades`} element={<Usuario />}></Route>
       </Routes>
     </body>
     </usuarioContext.Provider>
