@@ -1,5 +1,5 @@
 import './App.css';
-import React,{createContext}  from 'react';
+import React,{createContext, useEffect}  from 'react';
 import { Home, IniciarSesion, Registrarse, Usuario } from './indice';
 import { Routes, Route } from 'react-router-dom'
 
@@ -9,14 +9,20 @@ export const usuarioContext = createContext()
 function App() {  
   const token = localStorage.getItem('token')
   const username = localStorage.getItem('username')
+  const id = localStorage.getItem('id')
   const usuarioLogueado = localStorage.getItem('token') !== null
-
+  
+  useEffect(()=>{
+    console.log(id)
+  },[])
+  
   return (
     <usuarioContext.Provider 
     value={{
       token,
       username,
-      usuarioLogueado
+      usuarioLogueado,
+      id
     }}>
       <body className="App">
       <Routes>

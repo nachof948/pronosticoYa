@@ -11,7 +11,7 @@ import './Hoja de estilo/Usuario.css'
 
 
 const Usuario = () => {
-  const { username, token, usuarioLogueado } = useContext(usuarioContext);
+  const { username, token, usuarioLogueado, id } = useContext(usuarioContext);
   const API_KEY= '56fc54e07cbc820b405d4839fad15d5a'
   const [ciudades, setCiudades]= useState([])
   const [ cargando, setCargando] = useState(true);
@@ -34,7 +34,7 @@ const Usuario = () => {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://pronostico-ya-server.vercel.app/usuario/${username}`, {
+      const response = await axios.get(`https://pronostico-ya-server.vercel.app/usuario/misciudades`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -120,7 +120,7 @@ const eliminarCiudad = async (ciudad) => {
 
   if (confirmacion.isConfirmed) {
     try {
-      await axios.delete(`https://pronostico-ya-server.vercel.app/usuario/${username}/eliminar`, { data: { ciudad } });
+      await axios.delete(`https://pronostico-ya-server.vercel.app/usuario/${id}/eliminar`, { data: { ciudad } });
       window.location.reload();
     } catch (error) {
       console.log('Error al eliminar', error);

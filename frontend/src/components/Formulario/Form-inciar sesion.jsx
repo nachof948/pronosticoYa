@@ -19,8 +19,10 @@ const FormIniciarSesion = () => {
       const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', values);
       const token = response.data.token;
       const nombreUsuario = response.data.username;
+      const id = response.data.id;
       localStorage.setItem('token', token);
       localStorage.setItem('username', nombreUsuario);
+      localStorage.setItem('id',id)
       setCargando(false)
       navegar(`/`);
       window.location.reload();
