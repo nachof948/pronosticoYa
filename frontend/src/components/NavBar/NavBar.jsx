@@ -25,7 +25,7 @@ const NavBar = () => {
           <img src="./Favicon.png" alt="" />
         </div>
         <nav className={click ? "navbar-enlaces active" : "navbar-enlaces"}>
-          <a href={`/usuario/misciudades`} ><span><i class="bi bi-person-fill"></i></span>{username}</a>
+          <a href={`/usuario/${username}`} ><span><i class="bi bi-person-fill"></i></span>{username}</a>
           <button onClick={cerrarSesion}>Cerrar Sesión</button>
         </nav>
         <BurgerButton click={click} manejarClick={manejarClick} />
