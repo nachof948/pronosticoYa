@@ -26,10 +26,10 @@ const mostrarCiudad = async (req, res)=>{
 
 const enviarCiudad = async (req, res) => {
     const { ciudad } = req.body;
-    const { id } = req.params;
+    const { username } = req.params;
 
     try {
-        const usuario = await Usuario.findById(id);
+        const usuario = await Usuario.findOne({username});
 
         if (!usuario) {
             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
@@ -58,10 +58,10 @@ const enviarCiudad = async (req, res) => {
 };
 
 const eliminarCiudad = async (req, res) => {
-    const { id} = req.params
+    const { username } = req.params
     const { ciudad } = req.body
     try{
-        const usuario = await Usuario.findById(id)
+        const usuario = await Usuario.findOne({username})
         if(!usuario){
             return res.status(404).send('Usuario no encontrado')
         }
