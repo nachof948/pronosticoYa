@@ -25,11 +25,21 @@ const mostrarCiudad = async (req, res)=>{
 
 
 const enviarCiudad = async (req, res) => {
-    const { username } = req.params;
+    const authorization = req.get('authorization')
+    let token = null
+    if(authorization && authorization.toLowerCase().startsWith('bearer')){
+        token = authorization.substring(7)
+    }
+    const decodedToken = jwt.verify(token, process.env.TOKEN)
+    if(!token || !decodedToken){
+        return res.status(401).json({mensaje:'Token invalido'})
+    }
+    const usuarioId = decodedToken.id
+
     const { ciudad } = req.body;
 
     try {
-        const usuario = await Usuario.findOne({ username });
+        const usuario = await Usuario.findOne({ usuarioId });
 
         if (!usuario) {
             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
