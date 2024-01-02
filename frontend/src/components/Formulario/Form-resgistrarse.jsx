@@ -69,7 +69,7 @@ const FormRegistrarse = () => {
     <div className='form-pregunta'>
       <p>Ya tienes una cuenta?</p>
       <span>/</span>
-      <a href="/auth/iniciar-sesion">Iniciar Sesion</a>
+      <a href="/auth/iniciar-sesion">Iniciar Sesión</a>
       <span>/</span>
       <a href="/">Volver al Inicio</a>
     </div>
