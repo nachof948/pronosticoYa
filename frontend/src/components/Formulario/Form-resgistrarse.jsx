@@ -10,17 +10,21 @@ const FormRegistrarse = () => {
     mode: 'all',
   });
 
-  const[error, setError] = useState(false)
+  const [error, setError] = useState(false)
+  const [cargando, setCargando] = useState(false)
   
 
   const navegar = useNavigate()
 
   const manejarEnvio = async (values) => {
     try {
+      setCargando(true)
       const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/registrarse', values)
+      setCargando(false)
       navegar('/auth/iniciar-sesion')
     } catch (error) {
       if (error.response && error.response.status === 500) {
+        setCargando(false)
         setError(true);
       } else {
         console.log(error);
@@ -53,8 +57,14 @@ const FormRegistrarse = () => {
       <div>
         {errors.password?.type === 'required'&& <p className='error'>El campo contraseña es requerido</p>}
       </div>
-      
-      <button type='submit'>Registrarse</button>
+      {cargando ? (
+        <div class="loader"></div>
+      ) :(
+        <div>
+          <button type='submit'>Registrarse</button>
+        </div>
+      )}
+
     </form>
     <div className='form-pregunta'>
       <p>Ya tienes una cuenta?</p>

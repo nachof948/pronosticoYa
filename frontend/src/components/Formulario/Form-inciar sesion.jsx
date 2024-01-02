@@ -10,20 +10,23 @@ const FormIniciarSesion = () => {
   });
 
   const [error, setError] = useState(false);
-
+  const [cargando, setCargando] = useState(false)
   const navegar = useNavigate();
 
   const manejarInciarSesion = async (values) => {
     try {
+      setCargando(true)
       const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', values);
       const token = response.data.token;
       const nombreUsuario = response.data.username;
       localStorage.setItem('token', token);
       localStorage.setItem('username', nombreUsuario);
+      setCargando(false)
       navegar(`/`);
       window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 401) {
+        setCargando(false)
         setError(true);
       } else {
         console.log(error);
@@ -61,7 +64,13 @@ const FormIniciarSesion = () => {
             <p className='error'>El campo contraseña es requerido</p>
           )}
         </div>
-        <button type='submit'>Iniciar Sesion</button>
+        {cargando ? (
+        <div class="loader"></div>
+      ) :(
+        <div>
+          <button type='submit'>Iniciar Sesión</button>
+        </div>
+      )}
       </form>
       <div className='form-pregunta'>
       <p>No tienes una cuenta?</p>
