@@ -25,11 +25,11 @@ const mostrarCiudad = async (req, res)=>{
 
 
 const enviarCiudad = async (req, res) => {
-    const { username } = req.params;
     const { ciudad } = req.body;
+    const { id } = req.params;
 
     try {
-        const usuario = await Usuario.findOne({ username });
+        const usuario = await Usuario.findById(id);
 
         if (!usuario) {
             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
@@ -58,10 +58,10 @@ const enviarCiudad = async (req, res) => {
 };
 
 const eliminarCiudad = async (req, res) => {
-    const { username } = req.params
+    const { id} = req.params
     const { ciudad } = req.body
     try{
-        const usuario = await Usuario.findOne({ username })
+        const usuario = await Usuario.findById(id)
         if(!usuario){
             return res.status(404).send('Usuario no encontrado')
         }
@@ -73,7 +73,7 @@ const eliminarCiudad = async (req, res) => {
         if(ciudadesUsuario.ciudades.length === 0){
             await Ciudad.deleteMany({usuario: usuario._id})
         }
-        res.status(200).send('se elimino')
+        res.status(200).send('Se elimino')
 
     }
     catch(error){

@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { enviarCiudad, mostrarCiudad, eliminarCiudad } = require('../controllers/usuarioCiudades')
 
-router.post('/:username/agregar-ciudad', enviarCiudad)
-router.get('/:username', mostrarCiudad)
-router.delete('/:username/eliminar', eliminarCiudad)
+router.post('/:id/agregar', enviarCiudad)
+router.get('/misciudades', mostrarCiudad)
+router.delete('/:id/eliminar', eliminarCiudad)
 
 
 module.exports = router
