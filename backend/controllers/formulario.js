@@ -20,7 +20,7 @@ const registrarse = async(req, res)=>{
         res.status(200).json({ status: 'success', message: 'El usuario se registró exitosamente' })
     }
     catch(err){
-        res.status(500).json({message:'El email ya se encuentra registrado'})
+        res.status(500).json({message:'El email o el usuario ya se encuentra registrado'})
     }
 }
 

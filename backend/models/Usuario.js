@@ -6,7 +6,8 @@ const usuarioSchema = new mongoose.Schema({
         unique: true
     },
     username:{
-        type: String
+        type: String,
+        unique: true
     },
     password:{
         type: String
