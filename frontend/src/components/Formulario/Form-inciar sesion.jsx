@@ -19,8 +19,10 @@ const FormIniciarSesion = () => {
       const response = await axios.post('https://pronostico-ya-server.vercel.app/auth/iniciar-sesion', values);
       const token = response.data.token;
       const nombreUsuario = response.data.username;
+      const id = response.data.id;
       localStorage.setItem('token', token);
       localStorage.setItem('username', nombreUsuario);
+      localStorage.setItem('id',id)
       setCargando(false)
       navegar(`/`);
       window.location.reload();
@@ -36,7 +38,7 @@ const FormIniciarSesion = () => {
 
   return (
     <>
-      <h1 className='form-titulo' style={{textAlign:'center'}}>Iniciar Sesion</h1>
+      <h1 className='form-titulo' style={{textAlign:'center'}}>Iniciar Sesión</h1>
       <form className='form-usuario' onSubmit={handleSubmit(manejarInciarSesion)}>
         <input
           {...register('email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}

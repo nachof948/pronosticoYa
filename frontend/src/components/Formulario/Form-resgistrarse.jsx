@@ -40,7 +40,7 @@ const FormRegistrarse = () => {
       type="text" placeholder='Email...' name='email' 
       />
       <div>
-        {error && <p className='error-email'>Este email ya esta registrado</p>}
+        {error && <p className='error-email'>Este email o nombre de usuario ya esta registrado</p>}
         {errors.email?.type === 'required' && <p className='error'>El campo email es requerido</p>}
         {errors.email?.type === 'pattern' && <p className='error'>El correo electrónico no es válido</p>}
       </div>
@@ -69,7 +69,7 @@ const FormRegistrarse = () => {
     <div className='form-pregunta'>
       <p>Ya tienes una cuenta?</p>
       <span>/</span>
-      <a href="/auth/iniciar-sesion">Iniciar Sesion</a>
+      <a href="/auth/iniciar-sesion">Iniciar Sesión</a>
       <span>/</span>
       <a href="/">Volver al Inicio</a>
     </div>

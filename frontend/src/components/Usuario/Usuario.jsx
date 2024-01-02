@@ -212,7 +212,7 @@ const eliminarCiudad = async (ciudad) => {
       </div>
         {ciudades.length === 0 && 
         <div className='mensaje-usuario'>
-          <h1>No hay ciudad agregadas</h1>
+          <h1>No hay ciudades agregadas</h1>
           <a href="/">Buscar ciudades</a>
         </div>
         }

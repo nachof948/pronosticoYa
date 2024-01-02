@@ -26,7 +26,7 @@ const NavBar = () => {
         </div>
         <nav className={click ? "navbar-enlaces active" : "navbar-enlaces"}>
           <a href={`/usuario/${username}`} ><span><i class="bi bi-person-fill"></i></span>{username}</a>
-          <button onClick={cerrarSesion}>Cerrar Sesion</button>
+          <button onClick={cerrarSesion}>Cerrar Sesión</button>
         </nav>
         <BurgerButton click={click} manejarClick={manejarClick} />
         <div className={`initial ${click ? 'active' : ''}`}></div>
@@ -40,7 +40,7 @@ const NavBar = () => {
         </div>
         <nav className={click ? "navbar-enlaces active" : "navbar-enlaces"}>
           <Link to={'/auth/registrarse'} >Registrarse</Link>
-          <Link to={'/auth/iniciar-sesion'} >Iniciar Sesion</Link>
+          <Link to={'/auth/iniciar-sesion'} >Iniciar Sesión</Link>
         </nav>
         <BurgerButton click={click} manejarClick={manejarClick} />
         <div className={`initial ${click ? 'active' : ''}`}></div>

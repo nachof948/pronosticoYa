@@ -26,7 +26,7 @@ const NavBarUsuario = () => {
         <img src={icono} alt="" />
       </div>
       <nav className={click ? "navbar-enlaces active" : "navbar-enlaces"}>
-        <button onClick={cerrarSesion}>Cerrar Sesion</button>
+        <button onClick={cerrarSesion}>Cerrar Sesión</button>
       </nav>
       <BurgerButton click={click} manejarClick={manejarClick} />
       <div className={`initial ${click ? 'active' : ''}`}></div>
